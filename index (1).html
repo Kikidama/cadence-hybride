@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#FFFFFF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cadence Hybride" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
+  <title>Cadence Hybride — Tableau de Bord &amp; Programme On Air</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      background-color: #F6F7F9 !important;
+      color: #0F172A !important;
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .ai-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+    .ai-subtle {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+    }
+    .ink-main { color: #0F172A; }
+    .ink-sub { color: #475569; }
+    .ink-muted { color: #64748B; }
+
+    .badge-blue { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+    .badge-dark { background: #F1F5F9; color: #0F172A; border: 1px solid #CBD5E1; }
+    .badge-green { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+    .badge-amber { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+    .badge-red { background: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA; }
+    .badge-gray { background: #F8FAFC; color: #475569; border: 1px solid #E2E8F0; }
+
+    .btn-primary {
+      background: #0F172A;
+      color: #FFFFFF;
+      border: 1px solid #0F172A;
+      transition: background-color 140ms ease, transform 100ms ease;
+    }
+    .btn-primary:hover { background: #1E293B; }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-accent {
+      background: #2563EB;
+      color: #FFFFFF;
+      border: 1px solid #2563EB;
+      transition: background-color 140ms ease;
+    }
+    .btn-accent:hover { background: #1D4ED8; }
+
+    .btn-success {
+      background: #059669;
+      color: #FFFFFF;
+      border: 1px solid #059669;
+    }
+    .btn-success:hover { background: #047857; }
+
+    .btn-ghost {
+      background: #FFFFFF;
+      color: #334155;
+      border: 1px solid #E2E8F0;
+      transition: border-color 140ms ease, background-color 140ms ease;
+    }
+    .btn-ghost:hover { border-color: #94A3B8; background: #F8FAFC; }
+
+    .tab-btn {
+      transition: all 140ms ease;
+    }
+    .tab-btn[aria-selected="true"] {
+      background: #0F172A;
+      color: #FFFFFF;
+      border-color: #0F172A;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+    }
+    .tab-btn[aria-selected="false"] {
+      background: #FFFFFF;
+      color: #475569;
+      border-color: #E2E8F0;
+    }
+    .tab-btn[aria-selected="false"]:hover {
+      color: #0F172A;
+      border-color: #CBD5E1;
+    }
+
+    .bottom-nav {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid #E5E7EB;
+      padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+      box-shadow: 0 -2px 10px rgba(15, 23, 42, 0.04);
+    }
+    .bottom-tab[aria-selected="true"] {
+      color: #2563EB;
+    }
+    .bottom-tab[aria-selected="false"] {
+      color: #64748B;
+    }
+
+    .set-pill {
+      min-width: 48px;
+      min-height: 44px;
+      transition: all 140ms ease;
+    }
+    .set-pill[data-done="true"] {
+      background: #059669;
+      color: #FFFFFF;
+      border-color: #059669;
+    }
+    .set-pill[data-done="false"] {
+      background: #FFFFFF;
+      color: #0F172A;
+      border-color: #CBD5E1;
+    }
+    .set-pill[data-done="false"]:hover {
+      border-color: #2563EB;
+    }
+
+    .superset-rail {
+      border-left: 3px solid #2563EB;
+    }
+    .touch-btn { min-height: 42px; }
+    .progress-track { background: #E2E8F0; }
+    .progress-fill { background: #2563EB; transition: width 260ms ease; }
+    .progress-fill-green { background: #059669; transition: width 260ms ease; }
+
+    input[type="number"], input[type="text"], select {
+      background: #FFFFFF;
+      color: #0F172A;
+      border: 1px solid #CBD5E1;
+    }
+    input:focus, select:focus {
+      outline: 2px solid rgba(37, 99, 235, 0.25);
+      border-color: #2563EB;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="antialiased">
+  <div class="max-w-6xl mx-auto px-3 sm:px-6 pt-3 sm:pt-5 pb-40 md:pb-28 space-y-4">
+
+    <!-- CLEAN WHITE AI-STUDIO TOP HEADER -->
+    <header class="ai-card rounded-2xl p-3.5 sm:p-5 space-y-3">
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style="background: #0F172A; color: #FFFFFF;">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h1 class="text-base sm:text-xl font-bold tracking-tight ink-main truncate">Cadence Hybride</h1>
+              <span class="badge-blue text-xs font-semibold px-2 py-0.5 rounded-full">On Air &middot; Matin</span>
+            </div>
+            <p class="text-xs ink-muted hidden sm:block">
+              Salle 100% matin (4 UL + 2 Boxe) &middot; Course soir/WE &middot; 2 s&eacute;r. eff. machines &middot; 4&times; Squat/DL/SW
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button id="btn-wakelock" type="button" title="Maintenir l'écran allumé" class="btn-ghost touch-btn px-2.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2"/></svg>
+            <span class="hidden sm:inline">&Eacute;cran</span>
+          </button>
+          <button id="btn-toggle-settings" type="button" class="btn-ghost touch-btn px-2.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer md:hidden" aria-expanded="false">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            R&eacute;glages
+          </button>
+          <button id="btn-export-md" type="button" class="btn-ghost touch-btn px-3 py-2 rounded-xl text-xs font-semibold hidden sm:flex items-center gap-1.5 cursor-pointer">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export .md
+          </button>
+        </div>
+      </div>
+
+      <!-- MOBILE STATUS PILLS -->
+      <div class="flex flex-wrap items-center gap-1.5 md:hidden">
+        <span id="mob-pill-sleep" class="badge-amber text-xs font-mono font-semibold px-2 py-0.5 rounded-md"></span>
+        <span id="mob-pill-wrist" class="badge-green text-xs font-semibold px-2 py-0.5 rounded-md"></span>
+        <span id="mob-pill-sw" class="badge-blue text-xs font-mono font-semibold px-2 py-0.5 rounded-md"></span>
+        <span id="mob-pill-week" class="badge-gray text-xs font-mono px-2 py-0.5 rounded-md"></span>
+      </div>
+
+      <!-- SETTINGS DRAWER -->
+      <div id="settings-drawer" class="hidden md:block space-y-3 pt-3 border-t border-[#E5E7EB]">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+          <div class="ai-subtle rounded-xl p-3 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold ink-muted uppercase tracking-wide">Sommeil</span>
+              <span id="sleep-rpe-badge" class="badge-amber text-xs font-mono font-semibold px-2 py-0.5 rounded">RPE -0,5</span>
+            </div>
+            <div class="grid grid-cols-3 gap-1.5">
+              <button data-sleep="short" class="sleep-btn touch-btn text-xs py-1.5 px-2 rounded-lg border cursor-pointer font-semibold">&lt; 6h</button>
+              <button data-sleep="medium" class="sleep-btn touch-btn text-xs py-1.5 px-2 rounded-lg border cursor-pointer font-semibold">6h&ndash;7h</button>
+              <button data-sleep="optimal" class="sleep-btn touch-btn text-xs py-1.5 px-2 rounded-lg border cursor-pointer font-semibold">&gt; 7h30</button>
+            </div>
+          </div>
+
+          <div class="ai-subtle rounded-xl p-3 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold ink-muted uppercase tracking-wide">Poignet Gauche</span>
+              <span id="wrist-status-badge" class="badge-green text-xs font-semibold px-2 py-0.5 rounded">Vert 0&ndash;2/10</span>
+            </div>
+            <div class="grid grid-cols-3 gap-1.5">
+              <button data-wrist="green" class="wrist-btn touch-btn text-xs py-1.5 px-2 rounded-lg border cursor-pointer font-semibold">Vert</button>
+              <button data-wrist="orange" class="wrist-btn touch-btn text-xs py-1.5 px-2 rounded-lg border cursor-pointer font-semibold">Orange</button>
+              <button data-wrist="red" class="wrist-btn touch-btn text-xs py-1.5 px-2 rounded-lg border cursor-pointer font-semibold">Rouge</button>
+            </div>
+          </div>
+
+          <div class="ai-subtle rounded-xl p-3 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold ink-muted uppercase tracking-wide">Cycle Street Workout</span>
+              <span id="weekly-progress-text" class="text-xs font-mono font-bold ink-main">0 / 9</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <select id="sw-week-select" class="touch-btn text-xs rounded-lg px-2.5 py-1.5 flex-1 font-semibold cursor-pointer" aria-label="Semaine Street Workout active">
+                <option value="0">S1 &middot; Socle Technique</option>
+                <option value="1">S2 &middot; Socle Technique</option>
+                <option value="2">S3 &middot; Densification</option>
+                <option value="3">S4 &middot; Densification</option>
+                <option value="4">S5 &middot; D&eacute;charge Tendons</option>
+                <option value="5">S6 &middot; Extension S&eacute;rie</option>
+                <option value="6">S7 &middot; Extension S&eacute;rie</option>
+                <option value="7">S8 &middot; Validation</option>
+              </select>
+              <div class="w-16 h-2 rounded-full progress-track overflow-hidden shrink-0">
+                <div id="weekly-progress-bar" class="h-full progress-fill" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
+          <label class="flex items-center gap-2 cursor-pointer select-none ink-sub font-medium">
+            <input id="toggle-autotimer" type="checkbox" class="accent-[#2563EB] w-4 h-4 cursor-pointer" />
+            <span>Chrono repos auto au clic d’une s&eacute;rie</span>
+          </label>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <button id="btn-export-md-drawer" type="button" class="btn-ghost px-2.5 py-1.5 rounded-lg font-semibold cursor-pointer sm:hidden">Export .md</button>
+            <button id="btn-backup-json" type="button" class="btn-ghost px-2.5 py-1.5 rounded-lg font-semibold cursor-pointer">Sauvegarde JSON</button>
+            <label class="btn-ghost px-2.5 py-1.5 rounded-lg font-semibold cursor-pointer">
+              Importer JSON
+              <input id="input-import-json" type="file" accept=".json" class="hidden" />
+            </label>
+            <button id="btn-reset-week" type="button" class="btn-ghost px-2.5 py-1.5 rounded-lg font-medium cursor-pointer ink-muted">Reset semaine</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="contextual-alert" class="hidden rounded-xl p-3 text-xs space-y-1"></div>
+    </header>
+
+    <!-- DESKTOP TOP NAVIGATION (6 TABS) -->
+    <nav class="hidden md:grid grid-cols-6 gap-2" role="tablist" aria-label="Sections du programme">
+      <button id="tab-dashboard" role="tab" aria-selected="true" data-tab="dashboard" class="tab-btn rounded-xl border px-3 py-2.5 text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Tableau de bord
+      </button>
+      <button id="tab-planning" role="tab" aria-selected="false" data-tab="planning" class="tab-btn rounded-xl border px-3 py-2.5 text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Planning
+      </button>
+      <button id="tab-muscu" role="tab" aria-selected="false" data-tab="muscu" class="tab-btn rounded-xl border px-3 py-2.5 text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.5 6.5h11M6.5 17.5h11M4 10v4M20 10v4M7 8v8M17 8v8M7 12h10"/></svg>
+        Muscu
+      </button>
+      <button id="tab-sw" role="tab" aria-selected="false" data-tab="sw" class="tab-btn rounded-xl border px-3 py-2.5 text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        Street W.
+      </button>
+      <button id="tab-boxe" role="tab" aria-selected="false" data-tab="boxe" class="tab-btn rounded-xl border px-3 py-2.5 text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Boxe Solo
+      </button>
+      <button id="tab-prophy" role="tab" aria-selected="false" data-tab="prophy" class="tab-btn rounded-xl border px-3 py-2.5 text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Prophylaxie
+      </button>
+    </nav>
+
+    <!-- MAIN PANELS -->
+    <main>
+      <!-- PANEL 0: TABLEAU DE BORD -->
+      <section id="panel-dashboard" class="space-y-4">
+        <!-- Hero Today Action Card -->
+        <div id="dash-today-hero" class="ai-card rounded-2xl p-4 sm:p-5"></div>
+
+        <!-- 4 Live Executive KPI Cards -->
+        <div id="dash-kpi-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+
+        <!-- Middle Row: 7-Day Load Visual Matrix + Strength/SW Benchmarks -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div id="dash-load-chart" class="ai-card rounded-2xl p-4 sm:p-5 lg:col-span-2 space-y-3"></div>
+          <div id="dash-benchmarks" class="ai-card rounded-2xl p-4 sm:p-5 space-y-3"></div>
+        </div>
+
+        <!-- Bottom Row: Quick Launch Shortcuts + Recent History -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div id="dash-quick-actions" class="ai-card rounded-2xl p-4 sm:p-5 space-y-3"></div>
+          <div id="dash-history-card" class="ai-card rounded-2xl p-4 sm:p-5 space-y-3"></div>
+        </div>
+      </section>
+
+      <!-- PANEL 1: PLANNING 7 JOURS + ALLURES COURSE -->
+      <section id="panel-planning" class="hidden space-y-4">
+        <div id="mobile-day-strip" class="flex md:hidden gap-1.5 overflow-x-auto no-scrollbar pb-1"></div>
+
+        <div id="planning-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-7 gap-3"></div>
+
+        <div id="day-detail-card" class="ai-card rounded-2xl p-4 sm:p-5"></div>
+
+        <!-- RUNNING PACE CALCULATOR -->
+        <div class="ai-card rounded-2xl p-4 sm:p-5 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#E5E7EB]">
+            <div>
+              <h2 class="text-base font-bold ink-main">Allures Course &amp; S&eacute;ances Fractionn&eacute;</h2>
+              <p class="text-xs ink-muted">Allures EF Zone 2 (Jeu 19h obligatoire / Dim opt.) et Fractionn&eacute; (Lun soir) selon ta VMA.</p>
+            </div>
+            <label class="flex items-center gap-2 text-xs font-semibold ink-sub">
+              VMA (km/h)
+              <input id="vma-input" type="number" step="0.5" min="10" max="22" class="w-20 touch-btn px-2.5 py-1.5 rounded-xl font-mono text-sm text-center font-bold" />
+            </label>
+          </div>
+          <div id="pace-zones-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5"></div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
+            <div class="ai-subtle rounded-xl p-3 space-y-1">
+              <div class="font-bold ink-main">Fractionn&eacute; A &middot; VMA Courte (42 min)</div>
+              <p class="ink-sub">15 min EF + 2 &times; (8 &times; 30&quot; vite / 30&quot; trot), r=3 min + 10 min retour calme.</p>
+            </div>
+            <div class="ai-subtle rounded-xl p-3 space-y-1">
+              <div class="font-bold ink-main">Fractionn&eacute; B &middot; Piste 400m (45 min)</div>
+              <p class="ink-sub">15 min EF + 6 &agrave; 8 &times; 400m &agrave; 100% VMA (r=1'15 trot) + 10 min retour calme.</p>
+            </div>
+            <div class="ai-subtle rounded-xl p-3 space-y-1">
+              <div class="font-bold ink-main">Fractionn&eacute; C &middot; Seuil 1000m (45 min)</div>
+              <p class="ink-sub">15 min EF + 4 &times; 1000m &agrave; 88&ndash;90% VMA (r=1'30 trot) + 10 min retour calme.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 2: MUSCULATION -->
+      <section id="panel-muscu" class="hidden space-y-3.5">
+        <div class="ai-card rounded-2xl p-3.5 sm:p-4 space-y-3">
+          <div id="muscu-selector" class="grid grid-cols-2 sm:flex sm:flex-wrap gap-2"></div>
+
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-[#E5E7EB]">
+            <div class="flex items-center gap-2.5">
+              <span class="text-xs ink-muted font-medium">Chrono s&eacute;ance (&le; 75:00)</span>
+              <span id="session-stopwatch" class="font-mono font-bold text-lg tabular-nums ink-main">00:00</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button id="btn-sw-toggle" type="button" class="btn-primary touch-btn px-3.5 py-1.5 rounded-xl text-xs font-bold cursor-pointer">D&eacute;marrer</button>
+              <button id="btn-sw-reset" type="button" class="btn-ghost touch-btn px-3 py-1.5 rounded-xl text-xs font-mono font-semibold cursor-pointer">00:00</button>
+            </div>
+          </div>
+          <div id="muscu-duration-badge" class="text-xs font-mono ink-sub"></div>
+        </div>
+
+        <div id="muscu-warmup" class="ai-card rounded-2xl p-3.5 sm:p-4 space-y-2.5"></div>
+        <div id="muscu-exercises" class="space-y-3"></div>
+
+        <div class="ai-card rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="text-xs ink-sub">
+            S&eacute;ance termin&eacute;e ? Enregistre-la dans ton Tableau de bord et coche automatiquement le planning.
+          </div>
+          <button id="btn-finish-workout" type="button" class="btn-success touch-btn px-4 py-2.5 rounded-xl text-sm font-bold cursor-pointer shrink-0">
+            Valider &amp; archiver cette s&eacute;ance
+          </button>
+        </div>
+      </section>
+
+      <!-- PANEL 3: STREET WORKOUT 8 SEMAINES -->
+      <section id="panel-sw" class="hidden space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="ai-card rounded-2xl p-4 sm:p-5 space-y-3 lg:col-span-2">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h2 class="text-base font-bold ink-main">Mont&eacute;e en Volume Qualitatif (S1 &rarr; S8)</h2>
+                <p class="text-xs ink-muted">Tractions 7-6-6 &rarr; 3&times;10 &middot; Dips 3&times;5 &rarr; 3&times;9 &middot; D&eacute;charge tendons S5</p>
+              </div>
+              <div class="flex items-center gap-3 text-xs font-medium ink-sub">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full inline-block" style="background:#2563EB"></span>Tractions</span>
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full inline-block" style="background:#059669"></span>Dips</span>
+              </div>
+            </div>
+            <div id="sw-chart" class="w-full overflow-x-auto"></div>
+          </div>
+
+          <div class="ai-card rounded-2xl p-4 sm:p-5 space-y-2.5 text-xs">
+            <h2 class="text-base font-bold ink-main">R&egrave;gles de Validation</h2>
+            <div class="ai-subtle rounded-xl p-3 ink-sub">
+              Passer &agrave; S+1 uniquement si <strong class="ink-main">100 % des reps</strong> sont strictes (z&eacute;ro kipping) et douleur poignet <strong class="ink-main">&le; 2/10</strong>.
+            </div>
+            <div class="badge-green rounded-xl p-2.5"><strong>Vert (0&ndash;2) :</strong> Bandes Dips + prise neutre Tractions.</div>
+            <div class="badge-amber rounded-xl p-2.5"><strong>Orange (3&ndash;4) :</strong> Seated Dip Hammer (2 s&eacute;r. eff.) + straps S1 Tractions.</div>
+            <div class="badge-red rounded-xl p-2.5"><strong>Rouge (5+) :</strong> Stop mouvement, bascule poulie uniquement.</div>
+          </div>
+        </div>
+
+        <div class="ai-card rounded-2xl overflow-hidden">
+          <div class="p-4 border-b border-[#E5E7EB] flex flex-wrap items-center justify-between gap-2">
+            <h2 class="text-base font-bold ink-main">Semaine par Semaine</h2>
+            <span class="text-xs ink-muted">Tap sur une ligne pour synchroniser Upper 1 &amp; Upper 2</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC] ink-muted">
+                  <th class="py-2.5 px-3 font-semibold">Sem.</th>
+                  <th class="py-2.5 px-3 font-semibold">Phase</th>
+                  <th class="py-2.5 px-3 font-semibold">Tractions</th>
+                  <th class="py-2.5 px-3 font-semibold">Dips</th>
+                  <th class="py-2.5 px-3 font-semibold">Repos</th>
+                  <th class="py-2.5 px-3 font-semibold text-right">Statut</th>
+                </tr>
+              </thead>
+              <tbody id="sw-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 4: BOXE SOLO -->
+      <section id="panel-boxe" class="hidden space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div id="boxe-selector" class="grid grid-cols-2 sm:flex gap-2 w-full sm:w-auto"></div>
+          <span class="badge-gray text-xs font-semibold px-3 py-1.5 rounded-xl">RPE &le; 6,5 &middot; 50&ndash;65% puissance &middot; Z&eacute;ro pliom&eacute;trie</span>
+        </div>
+
+        <div class="ai-card rounded-2xl p-4 sm:p-5 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span id="boxe-phase-badge" class="badge-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">Pr&ecirc;t</span>
+                <span id="boxe-step-counter" class="text-xs font-mono ink-muted">1 / 11</span>
+              </div>
+              <h2 id="boxe-current-title" class="text-base sm:text-lg font-bold ink-main"></h2>
+              <p id="boxe-current-cue" class="text-xs sm:text-sm ink-sub"></p>
+            </div>
+            <div id="boxe-clock" class="text-5xl font-bold font-mono tabular-nums tracking-tight text-center sm:text-right py-1 ink-main">05:00</div>
+          </div>
+
+          <div class="w-full h-2.5 rounded-full progress-track overflow-hidden">
+            <div id="boxe-progress-bar" class="h-full progress-fill" style="width: 0%"></div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:flex flex-wrap items-center gap-2">
+            <button id="boxe-btn-toggle" type="button" class="btn-accent touch-btn col-span-2 sm:col-span-1 px-5 py-2.5 rounded-xl text-sm font-bold cursor-pointer">D&eacute;marrer</button>
+            <button id="boxe-btn-prev" type="button" class="btn-ghost touch-btn px-3.5 py-2 rounded-xl text-xs font-semibold cursor-pointer">&larr; Pr&eacute;c.</button>
+            <button id="boxe-btn-next" type="button" class="btn-ghost touch-btn px-3.5 py-2 rounded-xl text-xs font-semibold cursor-pointer">Suiv. &rarr;</button>
+            <button id="boxe-btn-reset" type="button" class="btn-ghost touch-btn col-span-2 sm:col-span-1 px-3.5 py-2 rounded-xl text-xs font-medium cursor-pointer ink-muted">R&eacute;initialiser</button>
+          </div>
+        </div>
+
+        <div id="boxe-blocks" class="space-y-2.5"></div>
+      </section>
+
+      <!-- PANEL 5: PROPHYLAXIE -->
+      <section id="panel-prophy" class="hidden space-y-4">
+        <div class="space-y-2">
+          <div id="prophy-filters" class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1"></div>
+          <div class="badge-blue text-xs font-medium px-3.5 py-2.5 rounded-xl">
+            <strong>R&egrave;gle tendineuse 24h :</strong> douleur &le; 2/10 pendant l'exercice et z&eacute;ro raideur aggrav&eacute;e le lendemain au r&eacute;veil.
+          </div>
+        </div>
+
+        <div id="prophy-zones" class="space-y-3"></div>
+        <div id="prophy-wrist-matrix" class="ai-card rounded-2xl p-4 sm:p-5 space-y-3"></div>
+        <div id="prophy-thursday-routine" class="ai-card rounded-2xl p-4 sm:p-5 space-y-3"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- FLOATING REST TIMER BAR -->
+  <div id="rest-timer-bar" class="hidden fixed bottom-[76px] md:bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] max-w-xl ai-card rounded-2xl p-3.5 shadow-xl z-40">
+    <div class="flex items-center justify-between gap-2">
+      <div class="min-w-0">
+        <div class="text-xs ink-muted truncate" id="rest-timer-label">Repos</div>
+        <div class="text-2xl font-bold font-mono tabular-nums ink-main" id="rest-timer-display">02:30</div>
+      </div>
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button id="rest-minus" type="button" class="btn-ghost touch-btn text-xs font-mono font-bold px-2.5 rounded-xl cursor-pointer">-15s</button>
+        <button id="rest-plus" type="button" class="btn-ghost touch-btn text-xs font-mono font-bold px-2.5 rounded-xl cursor-pointer">+15s</button>
+        <button id="rest-pause" type="button" class="btn-accent touch-btn text-xs font-bold px-3.5 rounded-xl cursor-pointer">Pause</button>
+        <button id="rest-close" type="button" class="btn-ghost touch-btn text-sm px-2.5 rounded-xl cursor-pointer ink-muted" aria-label="Fermer">&times;</button>
+      </div>
+    </div>
+    <div class="w-full h-1.5 rounded-full progress-track overflow-hidden mt-2.5">
+      <div id="rest-timer-progress" class="h-full progress-fill" style="width: 100%"></div>
+    </div>
+  </div>
+
+  <!-- MOBILE FIXED BOTTOM TAB BAR (6 TABS · PURE WHITE) -->
+  <nav class="bottom-nav md:hidden fixed bottom-0 left-0 right-0 z-50 px-1 pt-1.5" role="tablist" aria-label="Navigation mobile">
+    <div class="grid grid-cols-6 gap-0.5 max-w-lg mx-auto">
+      <button data-tab="dashboard" id="mtab-dashboard" role="tab" aria-selected="true" class="bottom-tab flex flex-col items-center justify-center py-1.5 gap-0.5 rounded-lg cursor-pointer">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        <span class="text-xs font-semibold">Bord</span>
+      </button>
+      <button data-tab="planning" id="mtab-planning" role="tab" aria-selected="false" class="bottom-tab flex flex-col items-center justify-center py-1.5 gap-0.5 rounded-lg cursor-pointer">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span class="text-xs font-semibold">Plan</span>
+      </button>
+      <button data-tab="muscu" id="mtab-muscu" role="tab" aria-selected="false" class="bottom-tab flex flex-col items-center justify-center py-1.5 gap-0.5 rounded-lg cursor-pointer">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.5 6.5h11M6.5 17.5h11M4 10v4M20 10v4M7 8v8M17 8v8M7 12h10"/></svg>
+        <span class="text-xs font-semibold">Muscu</span>
+      </button>
+      <button data-tab="sw" id="mtab-sw" role="tab" aria-selected="false" class="bottom-tab flex flex-col items-center justify-center py-1.5 gap-0.5 rounded-lg cursor-pointer">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        <span class="text-xs font-semibold">SW</span>
+      </button>
+      <button data-tab="boxe" id="mtab-boxe" role="tab" aria-selected="false" class="bottom-tab flex flex-col items-center justify-center py-1.5 gap-0.5 rounded-lg cursor-pointer">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="text-xs font-semibold">Boxe</span>
+      </button>
+      <button data-tab="prophy" id="mtab-prophy" role="tab" aria-selected="false" class="bottom-tab flex flex-col items-center justify-center py-1.5 gap-0.5 rounded-lg cursor-pointer">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="text-xs font-semibold">Prophy</span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="toast" class="hidden fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2.5 rounded-xl text-xs font-semibold shadow-lg z-50" style="background:#0F172A; color:#FFFFFF;"></div>
+
+  <script>
+    // ===================== DATA MODEL =====================
+    const SW_WEEKS = [
+      { id: 0, code: 'S1', phase: 'Socle Technique', pullups: '4 × 5 reps (RIR 2)', pullVol: 20, dips: '4 × 4 reps (RIR 2)', dipVol: 16, rest: "2'30 – 2'45" },
+      { id: 1, code: 'S2', phase: 'Socle Technique', pullups: '4 × 6 reps', pullVol: 24, dips: '4 × 5 reps', dipVol: 20, rest: "2'30 – 2'45" },
+      { id: 2, code: 'S3', phase: 'Densification', pullups: '7 - 6 - 6 - 6', pullVol: 25, dips: '6 - 5 - 5 - 5', dipVol: 21, rest: "2'45" },
+      { id: 3, code: 'S4', phase: 'Densification', pullups: '4 × 7 reps', pullVol: 28, dips: '4 × 6 reps', dipVol: 24, rest: "2'45 – 3'00" },
+      { id: 4, code: 'S5', phase: 'Décharge Tendons', pullups: '3 × 6 reps (explosif)', pullVol: 18, dips: '3 × 5 reps (tempo 3-1-1)', dipVol: 15, rest: "2'30" },
+      { id: 5, code: 'S6', phase: 'Extension Série', pullups: '8 - 7 - 7 - 7', pullVol: 29, dips: '7 - 7 - 6 - 6', dipVol: 26, rest: "3'00" },
+      { id: 6, code: 'S7', phase: 'Extension Série', pullups: '4 × 8 reps', pullVol: 32, dips: '8 - 7 - 7 - 7', dipVol: 29, rest: "3'00" },
+      { id: 7, code: 'S8', phase: 'Validation', pullups: '3 × 9 – 10 strictes', pullVol: 29, dips: '3 × 8 – 9 strictes', dipVol: 26, rest: "3'00" }
+    ];
+
+    const PLANNING = [
+      {
+        day: 'Lundi', short: 'Lun', jsDay: 1,
+        sessions: [
+          { id: 'mon-boxeA', short: 'Boxe A', cat: 'boxe', period: 'matin', slot: 'Matin · 07h15 – 07h45', where: 'Salle On Air', title: 'Boxe Solo — Séance A (Footwork)', duration: '28 min', load: 'legere', link: { tab: 'boxe', target: 'boxeA' } },
+          { id: 'mon-frac', short: 'Frac.', cat: 'run', period: 'soir', slot: 'Soir · 18h30 – 19h15', where: 'Course / Piste', title: 'Fractionné (Qualité)', duration: '45 min', load: 'lourde' }
+        ],
+        note: 'Priorité absolue course : le Fractionné démarre la semaine à 57h30 du dernier Lower (Deadlift Samedi matin). Boxe A légère (RPE ≤ 6, zéro pliométrie) espacée de >10h : 1 seule séance lourde sur la journée.'
+      },
+      {
+        day: 'Mardi', short: 'Mar', jsDay: 2,
+        sessions: [
+          { id: 'tue-upper1', short: 'Upper 1', cat: 'muscu', period: 'matin', slot: 'Matin · 07h00 – 08h05', where: 'Salle On Air', title: 'Upper 1 (Dips, Machines & Biceps)', duration: '65 min', load: 'lourde', link: { tab: 'muscu', target: 'upper1' } }
+        ],
+        note: 'Haut du corps uniquement le lendemain matin du Fractionné : zéro interférence avec les jambes. Dips 4 séries + 2 séries effectives sur gros exos machines + Curl Incliné Marteau chef long biceps.'
+      },
+      {
+        day: 'Mercredi', short: 'Mer', jsDay: 3,
+        sessions: [
+          { id: 'wed-lower1', short: 'Lower 1', cat: 'muscu', period: 'matin', slot: 'Matin · 07h00 – 08h00', where: 'Salle On Air', title: 'Lower 1 (Squat Force)', duration: '57 min', load: 'lourde', link: { tab: 'muscu', target: 'lower1' } }
+        ],
+        note: 'Squat placé à 36h après le Fractionné et 94h après Lower 2 (Deadlift). Séance unique matinale qui laisse 35h avant l’EF obligatoire de Jeudi soir et 74h avant Lower 2 (Samedi matin).'
+      },
+      {
+        day: 'Jeudi', short: 'Jeu', jsDay: 4,
+        sessions: [
+          { id: 'thu-boxeB', short: 'Boxe B', cat: 'boxe', period: 'matin', slot: 'Matin · 07h15 – 07h45', where: 'Salle On Air', title: 'Boxe Solo — Séance B (Défense)', duration: '29 min', load: 'legere', link: { tab: 'boxe', target: 'boxeB' } },
+          { id: 'thu-ef1', short: 'EF 19h', cat: 'run', period: 'soir', slot: 'Soir · 19h00 – 19h40 (Obligatoire)', where: 'Course extérieure', title: 'Course — EF #1 Obligatoire (Zone 2)', duration: '40 min', load: 'legere' }
+        ],
+        note: 'Journée 100 % légère (0 séance lourde — décharge SNC) : Boxe B technique le matin (72h après Boxe A) puis sortie EF obligatoire à 19h00 (espacée de 11h15). Décrassage aérobie parfait 35h après le Squat.'
+      },
+      {
+        day: 'Vendredi', short: 'Ven', jsDay: 5,
+        sessions: [
+          { id: 'fri-upper2', short: 'Upper 2', cat: 'muscu', period: 'matin', slot: 'Matin · 07h00 – 08h06', where: 'Salle On Air', title: 'Upper 2 (Tractions & Biceps+)', duration: '66 min', load: 'lourde', link: { tab: 'muscu', target: 'upper2' } }
+        ],
+        note: 'Haut du corps uniquement le lendemain matin de l’EF obligatoire de Jeudi 19h : zéro fatigue jambes/lombaires ! Espacé de 72h exactes après Upper 1 (récupération complète poignet gauche, épaules & bras).'
+      },
+      {
+        day: 'Samedi', short: 'Sam', jsDay: 6,
+        sessions: [
+          { id: 'sat-lower2', short: 'Lower 2', cat: 'muscu', period: 'matin', slot: 'Matin · 09h00 – 10h00', where: 'Salle On Air', title: 'Lower 2 (Deadlift Force)', duration: '58 min', load: 'lourde', link: { tab: 'muscu', target: 'lower2' } }
+        ],
+        note: 'Espacé de 74h après Lower 1 (Squat) et de 37h après l’EF de Jeudi soir. Séance unique matinale qui garantit 57h30 de fraîcheur avant le Fractionné de Lundi soir.'
+      },
+      {
+        day: 'Dimanche', short: 'Dim', jsDay: 0,
+        sessions: [
+          { id: 'sun-rest', short: 'Repos', cat: 'repos', period: 'matin', slot: 'Matin · Repos salle', where: 'Maison / Repos', title: 'Repos SNC + Prophylaxie 15 min', duration: '15 min', load: 'repos', link: { tab: 'prophy', target: 'all' } },
+          { id: 'sun-ef2', short: 'EF opt.', cat: 'run', period: 'soir', slot: 'Journée · 14h00 – 14h45 (Optionnelle)', where: 'Course extérieure', title: 'Course — EF #2 Optionnelle (Zone 2)', duration: '45 min', load: 'legere', optional: true }
+        ],
+        note: 'Zéro salle de sport : soupape SNC & mobilité 15 min. Si ton sommeil de la semaine est bon, ajoute l’EF #2 Zone 2 douce en journée (28h après Deadlift) ; si sommeil < 6h, garde Dimanche en repos total (tu restes sur 2 courses solides : Lun Fractionné + Jeu 19h EF).'
+      }
+    ];
+
+    const WORKOUTS = {
+      upper1: {
+        id: 'upper1', name: 'Upper 1', planSessionId: 'tue-upper1',
+        subtitle: 'Dips 4× · Gros Exos Machines 2 sér. eff. · Épaules, Triceps & Biceps Chef Long',
+        slot: 'Mardi Matin · 07h00 – 08h05', duration: '~65 min (échauffement inclus)',
+        warmupTitle: 'Échauffement Matinal Upper (8 min)',
+        warmupSteps: [
+          '2 min rameur ou vélo léger pour monter la température',
+          '15 band pull-aparts + 12 rotations externes épaules (élastique léger)',
+          'Mobilisation douce poignet gauche (cercles lents sans hyperextension)',
+          '2 séries progressives légères avant les Dips'
+        ],
+        blocks: [
+          {
+            type: 'single',
+            items: [{
+              id: 'u1-dips', swKey: 'dips',
+              name: 'Dips Barres Parallèles Épaisses',
+              altOrange: 'Hammer Strength Seated Dip (2 sér. eff. × 8–10) — Bascule Feu Orange',
+              altRed: 'Extension Triceps Corde + Développé Convergent Léger — Stop Dips (Feu Rouge)',
+              equip: 'Poids du corps / Hammer Strength', sets: 4, reps: 'Protocole SW', restSec: 150, restLabel: "2'30", baseRpe: 7.5,
+              cue: 'Buste penché ~15°, descente contrôlée (2s) jusqu’à bras parallèles, poussée explosive. Garder 1–2 reps en réserve.',
+              wristCue: 'Poignets neutres strictement dans l’axe des avant-bras, bandes de poignet recommandées.'
+            }]
+          },
+          {
+            type: 'single',
+            items: [{
+              id: 'u1-inc', effectiveTag: '2 sér. eff.',
+              name: 'Développé Incliné Convergent (Iso-Lateral Incline Press)',
+              equip: 'Machine Hammer Strength', sets: 2, reps: '8 – 10 (+ 1 chauffe)', restSec: 120, restLabel: "2'00", baseRpe: 8.5,
+              cue: '1 série de chauffe rapide puis 2 séries effectives très propres (RIR 1–2). Omoplates fixées au dossier, trajectoire convergente complète.',
+              wristCue: 'Remplace la barre droite (proscrite). Appui bas dans le talon de la paume, poignet droit verrouillé.'
+            }]
+          },
+          {
+            type: 'single',
+            items: [{
+              id: 'u1-lat', effectiveTag: '2 sér. eff.',
+              name: 'Tirage Vertical Prise Neutre Serrée (poignée parallèle / MAG)',
+              equip: 'Poulie Haute', sets: 2, reps: '8 – 10 (+ 1 chauffe)', restSec: 120, restLabel: "2'00", baseRpe: 8.5,
+              cue: '1 série de chauffe puis 2 séries effectives appuyées (RIR 1–2). Abaissement d’épaules, coudes vers les hanches, pause 1s en bas.',
+              wristCue: 'Sangles de tirage (straps) OBLIGATOIRES pour supprimer toute contrainte sur le poignet gauche.'
+            }]
+          },
+          {
+            type: 'superset', label: 'Superset S1 — Épaules & Triceps',
+            items: [
+              { id: 'u1-s1a', tag: 'S1A', name: 'Élévations Latérales Unilatérales Poulie Basse', equip: 'Poulie (ou manchette cheville)', sets: 4, reps: '12 – 15 / bras', restSec: 30, restLabel: '30s → S1B', baseRpe: 8.5, cue: 'Câble hauteur hanche, élévation dans le plan scapulaire (30° avant), freinage 2s.', wristCue: 'Manchette cheville autour de l’avant-bras gauche pour zéro charge poignet.' },
+              { id: 'u1-s1b', tag: 'S1B', name: 'Extension Triceps Overhead à la Corde', equip: 'Poulie Basse / Médiane', sets: 4, reps: '10 – 12', restSec: 90, restLabel: "1'30 après S1B", baseRpe: 8.5, cue: 'Buste incliné, coudes fixes pointés devant, étirement profond du chef long.', wristCue: 'Prise neutre naturelle sur la corde ; ne jamais casser le poignet.' }
+            ]
+          },
+          {
+            type: 'superset', label: 'Superset S2 — Biceps Chef Long & Coiffe des Rotateurs',
+            items: [
+              { id: 'u1-biceps', tag: 'S2A', name: 'Curl Incliné Haltères Prise Marteau (Banc 50°)', equip: 'Banc Incliné + Haltères', sets: 3, reps: '10 – 12', restSec: 30, restLabel: '30s → S2B', baseRpe: 8.5, cue: 'Coudes légèrement en arrière du buste pour étirer le chef long du biceps, pause 1s en haut, freinage 2s.', wristCue: 'Prise marteau neutre (pouces vers le haut) : zéro torsion radio-ulnaire.' },
+              { id: 'u1-s2a', tag: 'S2B', name: 'Face Pull à la Corde (rotation externe finale)', equip: 'Poulie Haute', sets: 3, reps: '15 – 18', restSec: 75, restLabel: "1'15 après S2B", baseRpe: 7.5, cue: 'Tirer vers le front en ouvrant les mains, pouces vers l’arrière, tenir 1s.' }
+            ]
+          },
+          {
+            type: 'single',
+            items: [{ id: 'u1-s2b', name: 'Finisher · Pallof Press Anti-Rotation (pause 2s tendu)', equip: 'Poulie Médiane', sets: 3, reps: '10 / côté', restSec: 45, restLabel: '45s', baseRpe: 7.5, cue: 'Enchaînement gauche/droite puis 45s de repos. Résister à la torsion du tronc.', wristCue: 'Prise neutre à deux mains collées (zéro tension poignet).' }]
+          }
+        ]
+      },
+      lower1: {
+        id: 'lower1', name: 'Lower 1', planSessionId: 'wed-lower1',
+        subtitle: 'Squat Force 4×5 · Secondaire 2 sér. eff. + Prophylaxie Genoux/Mollets/Chevilles',
+        slot: 'Mercredi Matin · 07h00 – 08h00', duration: '~57 min (échauffement inclus)',
+        warmupTitle: 'Échauffement Matinal Lower (10 min)',
+        warmupSteps: [
+          '3 min vélo ou marche inclinée dynamique',
+          'Mobilité chevilles (genou-mur) + hanches 90/90 + 8 fentes dynamiques',
+          '1 × 10 Deadbug lents pour verrouiller le gainage spinal',
+          '3 gammes montantes au Squat (barre à vide → 50% → 75%)'
+        ],
+        blocks: [
+          {
+            type: 'single',
+            items: [{ id: 'l1-squat', name: 'Back Squat Barre Libre (ou Safety Squat Bar)', equip: 'Rack / Barre Libre', sets: 4, reps: '5', restSec: 180, restLabel: "3'00", baseRpe: 7.5, cue: 'Descente contrôlée (2s), gainage abdominal fort, remontée puissante. Garder 2 reps en réserve (RIR 2).', wristCue: 'Prise large ou faux grip (pouces au-dessus) pour garder le poignet gauche dans l’axe. Safety Squat Bar idéale.' }]
+          },
+          {
+            type: 'single',
+            items: [{ id: 'l1-bss', effectiveTag: '2 sér. eff.', name: 'Bulgarian Split Squat — Contrôle Excentrique 3s (ou V-Squat)', equip: 'Haltères prise neutre / Hammer V-Squat', sets: 2, reps: '8 / jambe (+ 1 chauffe)', restSec: 90, restLabel: "1'30 / jambe", baseRpe: 8.0, cue: '2 séries effectives très qualitatives par jambe (RIR 1–2). Genou aligné 2e orteil, descente 3s.', wristCue: 'Sangles de tirage (straps) sur les haltères pour décharger le poignet gauche.' }]
+          },
+          {
+            type: 'superset', label: 'Superset S1 — Prophylaxie Ischios & Genou du Coureur',
+            items: [
+              { id: 'l1-s1a', tag: 'S1A', name: 'Leg Curl Assis — Freinage Excentrique 3s', equip: 'Machine Guidée', sets: 3, reps: '10 – 12', restSec: 30, restLabel: '30s → S1B', baseRpe: 8.0, cue: 'Réglage strict axe du genou, concentrique franche, retour lent 3s.' },
+              { id: 'l1-s1b', tag: 'S1B', name: 'Spanish Squat Isométrique (ou Chaise Unilatérale)', equip: 'Sangle rigide sur rack', sets: 3, reps: '40s maintien', restSec: 75, restLabel: "1'15 après S1B", baseRpe: 7.5, cue: 'Tibias verticaux, flexion ~70°, pousser en continu dans les talons (tendon rotulien).' }
+            ]
+          },
+          {
+            type: 'superset', label: 'Superset S2 — Tendon d’Achille, Périostite & Chevilles',
+            items: [
+              { id: 'l1-s2a', tag: 'S2A', name: 'Extensions Mollets Debout Jambe Tendue (Jumeaux)', equip: 'Machine Mollets Debout / Presse', sets: 3, reps: '12 – 15', restSec: 20, restLabel: '20s → S2B', baseRpe: 8.0, cue: 'Amplitude complète, pause 2s en étirement bas (Achille) et 1s en contraction haute.' },
+              { id: 'l1-s2b', tag: 'S2B', name: 'Tibialis Raises + Proprioception Unipodale', equip: 'Mur / Sol (chaussettes)', sets: 3, reps: '18 reps + 20s / pied', restSec: 60, restLabel: "1'00 après S2B", baseRpe: 7.5, cue: 'Releveurs dos au mur (anti-périostite), puis 20s équilibre sur 1 pied yeux fermés.' }
+            ]
+          }
+        ]
+      },
+      upper2: {
+        id: 'upper2', name: 'Upper 2', planSessionId: 'fri-upper2',
+        subtitle: 'Tractions 4× · Machines Hammer 2 sér. eff. · Bloc Bras & Biceps+',
+        slot: 'Vendredi Matin · 07h00 – 08h06', duration: '~66 min (échauffement inclus)',
+        warmupTitle: 'Échauffement Matinal Upper (8 min)',
+        warmupSteps: [
+          '2 min rameur léger + 30s suspension passive/active douce',
+          '15 scapular pull-ups ou tirages légers poulie',
+          'Mobilisation douce poignet gauche + préparation straps si besoin',
+          '1 série d’activation de 3 tractions propres et explosives'
+        ],
+        blocks: [
+          {
+            type: 'single',
+            items: [{
+              id: 'u2-pullups', swKey: 'pullups',
+              name: 'Tractions Strictes Prise Neutre (poignées parallèles)',
+              altOrange: 'Tractions Prise Neutre + STRAPS DÈS LA SÉRIE 1 (Feu Orange actif)',
+              altRed: 'Tirage Vertical Poulie Prise Neutre + Straps (2 sér. eff. × 8–10) — Stop Tractions',
+              equip: 'Barre de Traction / Rack', sets: 4, reps: 'Protocole SW', restSec: 165, restLabel: "2'45", baseRpe: 7.5,
+              cue: 'Départ bras tendus actifs, poitrine vers les poignées, zéro élan/kipping, descente 2s.',
+              wristCue: 'Prise neutre impérative. Sangles autorisées dès S3 (ou S1 si Orange).'
+            }]
+          },
+          {
+            type: 'single',
+            items: [{ id: 'u2-chest', effectiveTag: '2 sér. eff.', name: 'Développé Couché Convergent (Iso-Lateral Chest Press)', equip: 'Machine Hammer Strength', sets: 2, reps: '8 – 10 (+ 1 chauffe)', restSec: 120, restLabel: "2'00", baseRpe: 8.5, cue: '1 série de chauffe puis 2 séries effectives propres (RIR 1–2). Excentrique 2s, poussée fluide.', wristCue: 'Alternative directe au développé couché barre droite (strictement interdit).' }]
+          },
+          {
+            type: 'single',
+            items: [{ id: 'u2-row', effectiveTag: '2 sér. eff.', name: 'Rowing Convergent Appui Poitrine (Iso-Lateral Row)', equip: 'Machine Hammer Strength', sets: 2, reps: '10 (+ 1 chauffe)', restSec: 120, restLabel: "2'00", baseRpe: 8.5, cue: '1 série de chauffe puis 2 séries effectives denses (RIR 1–2). Poitrine collée au boudin (épargne les lombaires avant le Deadlift de demain).', wristCue: 'Prise neutre (poignées verticales) + sangles de tirage recommandées.' }]
+          },
+          {
+            type: 'superset', label: 'Superset S1 — Triceps Latéral & Arrière d’Épaule',
+            items: [
+              { id: 'u2-s1a', tag: 'S1A', name: 'Extension Triceps Unilatérale (ou Poignée V Neutre)', equip: 'Poulie Haute', sets: 4, reps: '10 – 12 / bras', restSec: 30, restLabel: '30s → S1B', baseRpe: 8.5, cue: 'Coude collé aux côtes, extension complète vers le bas/arrière.', wristCue: 'Corde ou poignée neutre uniquement.' },
+              { id: 'u2-s1b', tag: 'S1B', name: 'Oiseau / Reverse Fly Machine (Prise Neutre)', equip: 'Pec Deck Inversé / Poulies', sets: 4, reps: '15', restSec: 75, restLabel: "1'15 après S1B", baseRpe: 8.5, cue: 'Poignées neutres, ouvrir en arc large sans hausser les trapèzes.' }
+            ]
+          },
+          {
+            type: 'superset', label: 'Superset S2 — Deltoïdes Latéraux & Biceps Marteau Volume+',
+            items: [
+              { id: 'u2-s2a', tag: 'S2A', name: 'Élévations Latérales Haltères Assis (buste +10°)', equip: 'Haltères', sets: 4, reps: '12 – 15', restSec: 30, restLabel: '30s → S2B', baseRpe: 8.5, cue: 'Assis pour zéro élan lombaire, lever dans le plan scapulaire, freinage contrôlé.', wristCue: 'Prise neutre douce sans crispation.' },
+              { id: 'u2-s2b', tag: 'S2B', name: 'Curl Marteau à la Corde Poulie Basse (Volume+)', equip: 'Poulie Basse + Corde', sets: 4, reps: '10 – 12', restSec: 75, restLabel: "1'15 après S2B", baseRpe: 8.5, cue: 'Tension continue, coudes fixes collés aux côtes, pause 1s en haut, retour 2s.', wristCue: 'Prise marteau strictement neutre sur corde.' }
+            ]
+          },
+          {
+            type: 'single',
+            items: [{ id: 'u2-biceps-fin', name: 'Finisher Biceps · Curl Bayésien Unilatéral Poulie Basse', equip: 'Poulie Basse (Poignée neutre ou Manchette)', sets: 2, reps: '12 – 15 / bras', restSec: 45, restLabel: '45s', baseRpe: 9.0, cue: 'Dos à la poulie, un pas en avant (bras derrière le buste pour étirement maximal + congestion finale).', wristCue: 'Poignée neutre ou manchette cheville à l’avant-bras gauche = 0 % charge poignet.' }]
+          }
+        ]
+      },
+      lower2: {
+        id: 'lower2', name: 'Lower 2', planSessionId: 'sat-lower2',
+        subtitle: 'Deadlift Force 4×4 · Hip Thrust 2 sér. eff. + Stabilité Hanches/Chevilles',
+        slot: 'Samedi Matin · 09h00 – 10h00', duration: '~58 min (échauffement inclus)',
+        warmupTitle: 'Échauffement Matinal Lower (10 min)',
+        warmupSteps: [
+          '3 min vélo ou rameur doux pour réveiller la chaîne postérieure',
+          '10 ponts fessiers + 10 Good Mornings bâton + 8 ouvertures thoraciques',
+          'Installation des straps et vérification du gainage abdominal',
+          '3 gammes montantes au Deadlift (50% → 70% → 85%) en dead stop'
+        ],
+        blocks: [
+          {
+            type: 'single',
+            items: [{ id: 'l2-dl', name: 'Deadlift Conventionnel (ou Trap Bar Poignées Neutres)', equip: 'Barre Libre / Plateforme On Air', sets: 4, reps: '4', restSec: 180, restLabel: "3'00", baseRpe: 7.5, cue: 'Reset complet au sol (dead stop), mise en tension du grand dorsal avant décollage.', wristCue: 'Sangles (straps) OBLIGATOIRES en double pronation (ou Trap Bar neutre). Proscrire le mixed grip.' }]
+          },
+          {
+            type: 'single',
+            items: [{ id: 'l2-hip', effectiveTag: '2 sér. eff.', name: 'Hip Thrust Machine (ou Back Extension 45° lestée)', equip: 'Machine Guidée / Banc 45°', sets: 2, reps: '8 – 10 (+ 1 chauffe)', restSec: 120, restLabel: "2'00", baseRpe: 8.5, cue: '1 série de chauffe puis 2 séries effectives propres (RIR 1–2). Extension complète + pause 1s en haut.', wristCue: 'Aucune mise en charge sur le poignet gauche.' }]
+          },
+          {
+            type: 'superset', label: 'Superset S1 — Contrôle Genou & Moyen Fessier (Anti-TFL)',
+            items: [
+              { id: 'l2-s1a', tag: 'S1A', name: 'Step-Up Contrôlé (Hauteur genou, descente 3s)', equip: 'Box + Haltères avec straps', sets: 3, reps: '8 / jambe', restSec: 30, restLabel: '30s → S1B', baseRpe: 7.5, cue: 'Monter sans pousser avec la jambe arrière, freiner la descente 3s genou aligné.', wristCue: 'Sangles (straps) sur haltères ou gilet lesté.' },
+              { id: 'l2-s1b', tag: 'S1B', name: 'Abduction de Hanche Poulie Basse / Machine', equip: 'Poulie Basse / Machine', sets: 3, reps: '15 / jambe', restSec: 75, restLabel: "1'15 après S1B", baseRpe: 8.0, cue: 'Buste droit sans basculer le bassin (moyen fessier anti-essuie-glace).' }
+            ]
+          },
+          {
+            type: 'superset', label: 'Superset S2 — Soléaire Coureur & Gainage Anti-Extension',
+            items: [
+              { id: 'l2-s2a', tag: 'S2A', name: 'Mollets Assis Genou Fléchi (Soléaire)', equip: 'Machine Mollets Assis', sets: 4, reps: '12 – 15', restSec: 20, restLabel: '20s → S2B', baseRpe: 8.5, cue: 'Genoux à 90° pour isoler le soléaire. Descente 3s, pause 1s en bas.' },
+              { id: 'l2-s2b', tag: 'S2B', name: 'Deadbug avec Pression Élastique ou Swiss Ball', equip: 'Tapis / Élastique', sets: 3, reps: '10 alternées lentes', restSec: 60, restLabel: "1'00 après S2B", baseRpe: 7.5, cue: 'Bas du dos plaqué au sol, expiration lente. Zéro appui poignet.' }
+            ]
+          }
+        ]
+      }
+    };
+
+    const BOXE_SESSIONS = {
+      boxeA: {
+        id: 'boxeA', name: 'Boxe A (28 min)', slot: 'Lundi Matin · 07h15 – 07h45 · Salle On Air',
+        focus: 'Footwork, Angles & Ligne Directe — Jambes fraîches avant le Fractionné de 18h30',
+        steps: [
+          { block: 'Bloc 1 · Échauffement', title: 'Mobilité Articulaire & Mise en Garde', dur: 300, type: 'warmup', cue: '2 min mobilité nuque, épaules, poignets + bandages 4m. 3 min déplacements lents miroir (4 directions, zéro pliométrie).' },
+          { block: 'Bloc 2 · Shadow', title: 'Round 1 — Footwork Pur & Jab', dur: 180, type: 'work', cue: '1re min : zéro coup, pas chassés + pivots 45° pied avant. Min 2–3 : Jab seul sur chaque déplacement.' },
+          { block: 'Repos', title: 'Récupération Active', dur: 60, type: 'rest', cue: 'Relâche épaules, marche lente, respiration nasale.' },
+          { block: 'Bloc 2 · Shadow', title: 'Round 2 — Ligne Directe & Hanches', dur: 180, type: 'work', cue: 'Combinaisons 1-2 et 1-1-2. Rotation hanche arrière, retour immédiat gant à la pommette.' },
+          { block: 'Repos', title: 'Récupération Active', dur: 60, type: 'rest', cue: 'Secoue les bras, vérifie les bandages poignet gauche.' },
+          { block: 'Bloc 2 · Shadow', title: 'Round 3 — Sorties d’Axe', dur: 180, type: 'work', cue: 'Chaque enchaînement finit par esquive latérale ou pas de côté + pivot.' },
+          { block: 'Repos', title: 'Transition Sac (14–16 oz)', dur: 60, type: 'rest', cue: 'Enfile tes gants. Objectif : 55 % puissance max, touche fluide.' },
+          { block: 'Bloc 3 · Sac Touche', title: 'Round 4 — Volume Léger & Épaules', dur: 150, type: 'work', cue: 'Alternance 30s directs légers continus garde haute / 15s déplacement autour du sac.' },
+          { block: 'Repos', title: 'Récupération Active', dur: 60, type: 'rest', cue: 'Garde le cardio sous contrôle (RPE ≤ 6,5).' },
+          { block: 'Bloc 3 · Sac Touche', title: 'Round 5 — Enchaînements 3–4 Coups', dur: 150, type: 'work', cue: '1-2-1-2 ou 1-2-esquive-2 en touche rapide. Poignet gauche verrouillé.' },
+          { block: 'Bloc 4 · Gainage', title: 'Woodchopper Poulie + Retour au Calme', dur: 300, type: 'cooldown', cue: 'Woodchopper poulie prise neutre 2 mains : 2 × 12 / côté + étirement doux avant-bras + 5 respirations 4s/6s.' }
+        ]
+      },
+      boxeB: {
+        id: 'boxeB', name: 'Boxe B (29 min)', slot: 'Jeudi Matin · 07h15 – 07h45 · Salle On Air',
+        focus: 'Défense, Contres, Endurance Épaules & Chaîne Rotative — Avant l’EF obligatoire de 19h00',
+        steps: [
+          { block: 'Bloc 1 · Échauffement', title: 'Mobilité Thoracique & Shadow Lent', dur: 300, type: 'warmup', cue: '2 min ouvertures thoraciques + 15 rotations externes élastique. 3 min shadowboxing très lent 40%.' },
+          { block: 'Bloc 2 · Défense', title: 'Round 1 — Défense Active Pure', dur: 180, type: 'work', cue: 'Esquives latérales (slips), retraits de buste, blocages coudes serrés, roulades courtes.' },
+          { block: 'Repos', title: 'Récupération Active', dur: 60, type: 'rest', cue: 'Respire calmement, reste léger sur les appuis.' },
+          { block: 'Bloc 2 · Défense', title: 'Round 2 — Contres Courts', dur: 180, type: 'work', cue: 'Esquive droite → Cross (2) · Retrait → 2-1 · Esquive gauche → Jab corps/tête.' },
+          { block: 'Repos', title: 'Récupération Active', dur: 60, type: 'rest', cue: 'Relâche trapèzes et nuque.' },
+          { block: 'Bloc 2 · Défense', title: 'Round 3 — Shadow Libre en Rythme', dur: 180, type: 'work', cue: 'Défense + 2–3 coups + changement d’angle en continu. Focus légèreté des jambes.' },
+          { block: 'Repos', title: 'Préparation Endurance Épaules', dur: 60, type: 'rest', cue: 'Sac léger 50% ou miroir sans poids dans les mains.' },
+          { block: 'Bloc 3 · Épaules', title: 'Round 4 — Tempo 20s / 10s (×6)', dur: 180, type: 'work', cue: '6 cycles : 20s directs rapides légers hauteur visage + 10s déplacement garde haute serrée.' },
+          { block: 'Repos', title: 'Récupération Active', dur: 60, type: 'rest', cue: 'Secoue les deltoïdes, grand inspire nasal.' },
+          { block: 'Bloc 3 · Épaules', title: 'Round 5 — Tempo 20s / 10s (×6)', dur: 180, type: 'work', cue: 'Même format : 20s vitesse fluide / 10s garde haute. Brûlure locale ciblée, coût nerveux quasi nul.' },
+          { block: 'Bloc 4 · Gainage', title: 'Circuit Rotatif Avant-Bras + Calme', dur: 300, type: 'cooldown', cue: '2 tours : Planche latérale avant-bras (30s/côté) + Rotations thoraciques élastique (12/côté) + 1 min 30 respiration.' }
+        ]
+      }
+    };
+
+    const PROPHYLAXIE_ZONES = [
+      {
+        id: 'poignet', label: 'Poignet Gauche', priority: 'Priorité #1', badgeClass: 'badge-red',
+        summary: 'Protection contre l’hyperextension en charge, les torsions radio-ulnaires et les chocs au sac.',
+        sessions: [{ label: 'Upper 1', tab: 'muscu', target: 'upper1' }, { label: 'Upper 2', tab: 'muscu', target: 'upper2' }, { label: 'Boxe A/B', tab: 'boxe', target: 'boxeA' }],
+        protocols: [
+          { name: 'Échauffement Doux Pré-Séance', dose: '2 min avant Upper / Boxe', timerSec: 120, cue: 'Cercles lents en décharge, flexions/extensions actives sans appui au sol. Zéro hyperextension forcée.' },
+          { name: 'Renforcement Isométrique Léger', dose: '2 × 20s / angle (Dimanche)', timerSec: 40, cue: 'Avant-bras posé sur la cuisse, haltère 1–2 kg en prise neutre. Stop si douleur > 2/10.' },
+          { name: 'Équipement Systématique On Air', dose: 'Obligatoire', cue: 'Bandes poignet (Dips) · Straps (Deadlift & Tirage) · Manchette avant-bras (Élévations & Curl Bayésien) · Bandages 4m + gants 14–16 oz.' }
+        ]
+      },
+      {
+        id: 'genoux', label: 'Genoux & Tendon Rotulien', priority: 'Coureur + Squat', badgeClass: 'badge-amber',
+        summary: 'Renforcement tendon rotulien et VMO pour absorber la course et le Squat.',
+        sessions: [{ label: 'Lower 1', tab: 'muscu', target: 'lower1' }, { label: 'Lower 2', tab: 'muscu', target: 'lower2' }],
+        protocols: [
+          { name: 'Spanish Squat Isométrique', dose: '3 × 40s (Lower 1)', timerSec: 40, cue: 'Sangle rigide derrière les genoux, tibias verticaux, flexion ~70°, pousser dans les talons.' },
+          { name: 'Bulgarian & Step-Up Excentrique 3s', dose: 'Lower 1 (2 eff.) & Lower 2', cue: 'Descente freinée 3s, rotule alignée sur le 2e orteil (anti-valgus). Straps sur haltères.' },
+          { name: 'Règle Tendineuse 24h', dose: 'Auto-évaluation', cue: 'Douleur ≤ 2/10 acceptable uniquement si elle disparaît post-séance sans raideur aggravée au réveil.' }
+        ]
+      },
+      {
+        id: 'mollets', label: 'Mollets, Achille & Chevilles', priority: 'Anti-Périostite', badgeClass: 'badge-blue',
+        summary: 'Tolérance en charge du complexe jumeaux + soléaire + jambier antérieur.',
+        sessions: [{ label: 'Lower 1', tab: 'muscu', target: 'lower1' }, { label: 'Lower 2', tab: 'muscu', target: 'lower2' }],
+        protocols: [
+          { name: 'Jumeaux Debout Jambe Tendue', dose: '3 × 12–15 · Pause 2s bas (Lower 1)', cue: 'Amplitude complète, pause 2s en étirement bas pour renforcer le tendon d’Achille.' },
+          { name: 'Soléaire Assis Genou 90°', dose: '4 × 12–15 · Exc. 3s (Lower 2)', cue: 'Isole le soléaire (encaisse 5–6× poids de corps en course). Descente 3s, pause 1s en bas.' },
+          { name: 'Tibialis Raises + Proprioception', dose: '3 × 18 + 20s / pied (Lower 1)', timerSec: 20, cue: 'Releveurs dos au mur (anti-périostite) + équilibre unipodal pieds nus yeux fermés.' }
+        ]
+      },
+      {
+        id: 'hanches', label: 'Hanches, Moyen Fessier & Ischios', priority: 'Anti-TFL', badgeClass: 'badge-green',
+        summary: 'Stabilité pelvienne en course et protection excentrique des ischios pour le fractionné.',
+        sessions: [{ label: 'Lower 1', tab: 'muscu', target: 'lower1' }, { label: 'Lower 2', tab: 'muscu', target: 'lower2' }],
+        protocols: [
+          { name: 'Leg Curl Assis Excentrique 3s', dose: '3 × 10–12 (Lower 1)', cue: 'Concentrique franche, retour lent 3s pour prévenir les lésions ischios sur le fractionné.' },
+          { name: 'Abduction Hanche (Moyen Fessier)', dose: '3 × 15 / jambe (Lower 2)', cue: 'Buste droit sans bascule bassin : prévient le syndrome de l’essuie-glace (TFL).' },
+          { name: 'Mobilité Hanches 90/90 & Psoas', dose: '2 min (Lower & Dimanche)', timerSec: 120, cue: 'Transitions lentes assises en 90/90 + ouverture dynamique du psoas.' }
+        ]
+      },
+      {
+        id: 'epaules', label: 'Épaules, Coiffe & Rachis', priority: 'Boxe + SW', badgeClass: 'badge-gray',
+        summary: 'Centrage épaule (coiffe des rotateurs) et gainage sans appui poignet.',
+        sessions: [{ label: 'Upper 1', tab: 'muscu', target: 'upper1' }, { label: 'Upper 2', tab: 'muscu', target: 'upper2' }, { label: 'Boxe B', tab: 'boxe', target: 'boxeB' }],
+        protocols: [
+          { name: 'Face Pull Rotation Externe & Oiseau', dose: 'Upper 1 & Upper 2', cue: 'Tirer vers le front pouces arrière (pause 1s) pour compenser la garde de boxe.' },
+          { name: 'Gainage Zéro Appui Poignet', dose: 'Pallof · Deadbug · Avant-bras', cue: 'Zéro planche/pompe mains à plat : Pallof Press, Deadbug et planche latérale avant-bras.' },
+          { name: 'Décompression Thoracique', dose: '2 min (Upper & Dimanche)', timerSec: 120, cue: 'Ouvertures thoraciques Open Book + band pull-aparts très légers.' }
+        ]
+      }
+    ];
+
+    const WRIST_MATRIX = [
+      { category: 'Poussée', allowed: 'Hammer Strength Convergent (2 sér. eff.), appui talon paume', forbidden: 'Développé couché ou incliné barre droite libre' },
+      { category: 'Dips & Triceps', allowed: 'Dips barres épaisses + bandes (ou Hammer Seated Dip) · Extensions corde/neutre', forbidden: 'Barre au front barre droite · Pushdown barre droite pronation' },
+      { category: 'Tirages & Deadlift', allowed: 'Tractions prise neutre · Deadlift double pronation + straps (ou Trap Bar) · Tirage + straps', forbidden: 'Deadlift prise inversée (mixed grip) · Tirages lourds sans straps' },
+      { category: 'Biceps (Renforcé)', allowed: 'Curl Incliné Marteau · Curl Marteau Corde · Curl Bayésien poulie prise neutre / manchette avant-bras', forbidden: 'Curl barre droite ou barre EZ en supination forcée' },
+      { category: 'Squat, Gainage & Boxe', allowed: 'Squat prise large/faux grip (ou SSB) · Planches avant-bras · Bandages 4m + gants 14–16 oz (50–65%)', forbidden: 'Pompes/planches mains à plat 90° · Frappes puissance max au sac dur' }
+    ];
+
+    const THURSDAY_ROUTINE = [
+      { id: 'thu-p1', name: 'Respiration parasympathique (4s / 6s)', dur: 180, label: '3 min', cue: 'Allongé dos au sol, jambes surélevées : chute du cortisol et préparation sommeil profond.' },
+      { id: 'thu-p2', name: 'Mobilité chevilles Genou-Mur & Soléaire', dur: 180, label: '3 min', cue: '1 min 30 / côté : genou vers mur talon collé (10 reps lentes + 30s étirement doux).' },
+      { id: 'thu-p3', name: 'Hanches 90/90 + Ouverture Psoas', dur: 180, label: '3 min', cue: '10 transitions lentes en 90/90 + fente douce 45s/côté (post-fractionné).' },
+      { id: 'thu-p4', name: 'Open Book Thoracique & Coiffe élastique', dur: 180, label: '3 min', cue: '8 ouvertures thoraciques / côté + 15 band pull-aparts très légers.' },
+      { id: 'thu-p5', name: 'Automassage & Mobilité douce Poignet Gauche', dur: 180, label: '3 min', cue: 'Relâchement glissé avant-bras + mobilité active lente sans charge.' }
+    ];
+
+    // ===================== STATE & MIGRATION =====================
+    const STORAGE_KEY = 'cadence_hybride_v4_state';
+    const PREV_KEY = 'cadence_hybride_v3_state';
+    function getTodayPlanIdx() {
+      const idx = PLANNING.findIndex(d => d.jsDay === new Date().getDay());
+      return idx >= 0 ? idx : 0;
+    }
+
+    const defaultState = {
+      activeTab: 'dashboard',
+      selectedDay: getTodayPlanIdx(),
+      selectedWorkout: 'upper1',
+      selectedBoxe: 'boxeA',
+      prophyZone: 'all',
+      sleep: 'medium',
+      wrist: 'green',
+      swWeek: 0,
+      vma: 15.0,
+      autoRestTimer: true,
+      warmupOpen: false,
+      swValidated: {},
+      checkedSessions: {},
+      checkedSets: {},
+      checkedWarmups: {},
+      checkedProphy: {},
+      weights: {},
+      notes: {},
+      history: []
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return { ...structuredClone(defaultState), ...JSON.parse(raw) };
+        const prev = localStorage.getItem(PREV_KEY);
+        if (prev) {
+          const migrated = { ...structuredClone(defaultState), ...JSON.parse(prev), activeTab: 'dashboard' };
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+          return migrated;
+        }
+        return structuredClone(defaultState);
+      } catch {
+        return structuredClone(defaultState);
+      }
+    }
+
+    let state = loadState();
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.remove('hidden');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.add('hidden'), 2400);
+    }
+
+    // ===================== AUDIO + HAPTICS + WAKE LOCK =====================
+    function notifyCue(freq = 880, count = 2) {
+      try { if (navigator.vibrate) navigator.vibrate(count > 1 ? [120, 80, 120] : 80); } catch {}
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        for (let i = 0; i < count; i++) {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.14, ctx.currentTime + i * 0.22);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.22 + 0.16);
+          osc.connect(gain); gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + i * 0.22); osc.stop(ctx.currentTime + i * 0.22 + 0.16);
+        }
+      } catch {}
+    }
+
+    let wakeLock = null;
+    async function toggleWakeLock() {
+      const btn = document.getElementById('btn-wakelock');
+      if (wakeLock) {
+        try { await wakeLock.release(); } catch {}
+        wakeLock = null;
+        btn.className = 'btn-ghost touch-btn px-2.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer';
+        showToast('Mise en veille normale');
+        return;
+      }
+      if ('wakeLock' in navigator) {
+        try {
+          wakeLock = await navigator.wakeLock.request('screen');
+          btn.className = 'badge-blue touch-btn px-2.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer';
+          showToast('Écran maintenu allumé');
+          wakeLock.addEventListener('release', () => {
+            wakeLock = null;
+            btn.className = 'btn-ghost touch-btn px-2.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer';
+          });
+          return;
+        } catch {}
+      }
+      showToast('Wake Lock indisponible dans cet aperçu');
+    }
+    document.getElementById('btn-wakelock').addEventListener('click', toggleWakeLock);
+
+    // ===================== HELPERS =====================
+    function getSleepDelta() { return state.sleep === 'short' ? -1.0 : state.sleep === 'medium' ? -0.5 : 0; }
+    function formatRpe(base) { return String(Math.max(5.5, base + getSleepDelta())).replace('.', ','); }
+    function formatTime(sec) { const s = Math.max(0, Math.floor(sec)); return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`; }
+    function paceFromSpeed(kmh) { const t = Math.round(3600 / kmh); return `${Math.floor(t / 60)}'${String(t % 60).padStart(2, '0')}/km`; }
+    function loadBadgeClass(load) { return load === 'lourde' ? 'badge-amber' : load === 'legere' ? 'badge-green' : 'badge-gray'; }
+    function loadLabel(load) { return load === 'lourde' ? 'Lourde' : load === 'legere' ? 'Légère' : 'Repos'; }
+
+    // ===================== STOPWATCH & TIMERS =====================
+    let stopwatch = { interval: null, running: false, elapsed: 0 };
+    function updateStopwatchUI() {
+      const el = document.getElementById('session-stopwatch');
+      el.textContent = formatTime(stopwatch.elapsed);
+      el.style.color = stopwatch.elapsed >= 4500 ? '#DC2626' : stopwatch.elapsed >= 3900 ? '#D97706' : '#0F172A';
+      document.getElementById('btn-sw-toggle').textContent = stopwatch.running ? 'Pause' : (stopwatch.elapsed > 0 ? 'Reprendre' : 'Démarrer');
+    }
+    document.getElementById('btn-sw-toggle').addEventListener('click', () => {
+      if (stopwatch.running) { clearInterval(stopwatch.interval); stopwatch.running = false; }
+      else { stopwatch.running = true; stopwatch.interval = setInterval(() => { stopwatch.elapsed += 1; updateStopwatchUI(); }, 1000); }
+      updateStopwatchUI();
+    });
+    document.getElementById('btn-sw-reset').addEventListener('click', () => { clearInterval(stopwatch.interval); stopwatch = { interval: null, running: false, elapsed: 0 }; updateStopwatchUI(); });
+
+    let restTimer = { interval: null, total: 0, remaining: 0, paused: false, label: '' };
+    function startRestTimer(seconds, label) {
+      clearInterval(restTimer.interval);
+      restTimer = { interval: null, total: seconds, remaining: seconds, paused: false, label };
+      document.getElementById('rest-timer-bar').classList.remove('hidden');
+      document.getElementById('rest-pause').textContent = 'Pause';
+      updateRestTimerUI();
+      restTimer.interval = setInterval(() => {
+        if (restTimer.paused) return;
+        restTimer.remaining -= 1;
+        updateRestTimerUI();
+        if (restTimer.remaining <= 0) { clearInterval(restTimer.interval); restTimer.interval = null; notifyCue(980, 3); }
+      }, 1000);
+    }
+    function updateRestTimerUI() {
+      document.getElementById('rest-timer-label').textContent = `Repos · ${restTimer.label}`;
+      document.getElementById('rest-timer-display').textContent = formatTime(restTimer.remaining);
+      document.getElementById('rest-timer-progress').style.width = `${restTimer.total > 0 ? Math.max(0, (restTimer.remaining / restTimer.total) * 100) : 0}%`;
+    }
+    document.getElementById('rest-minus').addEventListener('click', () => { restTimer.remaining = Math.max(0, restTimer.remaining - 15); updateRestTimerUI(); });
+    document.getElementById('rest-plus').addEventListener('click', () => { restTimer.remaining += 15; restTimer.total = Math.max(restTimer.total, restTimer.remaining); updateRestTimerUI(); });
+    document.getElementById('rest-pause').addEventListener('click', () => { restTimer.paused = !restTimer.paused; document.getElementById('rest-pause').textContent = restTimer.paused ? 'Reprendre' : 'Pause'; });
+    document.getElementById('rest-close').addEventListener('click', () => { clearInterval(restTimer.interval); document.getElementById('rest-timer-bar').classList.add('hidden'); });
+
+    let boxeTimer = { interval: null, running: false, stepIdx: 0, remaining: 300 };
+    function loadBoxeStep(idx, autoStart = false) {
+      const session = BOXE_SESSIONS[state.selectedBoxe];
+      boxeTimer.stepIdx = Math.max(0, Math.min(idx, session.steps.length - 1));
+      boxeTimer.remaining = session.steps[boxeTimer.stepIdx].dur;
+      if (!autoStart) { clearInterval(boxeTimer.interval); boxeTimer.running = false; }
+      renderBoxeTimer(); renderBoxeBlocks();
+    }
+    function toggleBoxeTimer() {
+      const session = BOXE_SESSIONS[state.selectedBoxe];
+      if (boxeTimer.running) { clearInterval(boxeTimer.interval); boxeTimer.running = false; renderBoxeTimer(); return; }
+      boxeTimer.running = true; notifyCue(660, 1); renderBoxeTimer();
+      boxeTimer.interval = setInterval(() => {
+        boxeTimer.remaining -= 1;
+        if (boxeTimer.remaining <= 0) {
+          if (boxeTimer.stepIdx < session.steps.length - 1) {
+            notifyCue(880, 2); boxeTimer.stepIdx += 1; boxeTimer.remaining = session.steps[boxeTimer.stepIdx].dur; renderBoxeBlocks();
+          } else {
+            clearInterval(boxeTimer.interval); boxeTimer.running = false; boxeTimer.remaining = 0; notifyCue(1040, 3);
+          }
+        }
+        renderBoxeTimer();
+      }, 1000);
+    }
+    document.getElementById('boxe-btn-toggle').addEventListener('click', toggleBoxeTimer);
+    document.getElementById('boxe-btn-prev').addEventListener('click', () => loadBoxeStep(boxeTimer.stepIdx - 1, false));
+    document.getElementById('boxe-btn-next').addEventListener('click', () => loadBoxeStep(boxeTimer.stepIdx + 1, false));
+    document.getElementById('boxe-btn-reset').addEventListener('click', () => loadBoxeStep(0, false));
+
+    function renderBoxeTimer() {
+      const session = BOXE_SESSIONS[state.selectedBoxe];
+      const step = session.steps[boxeTimer.stepIdx];
+      const badge = document.getElementById('boxe-phase-badge');
+      badge.textContent = step.block;
+      badge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full ' + (step.type === 'work' ? 'badge-amber' : step.type === 'rest' ? 'badge-green' : 'badge-blue');
+      document.getElementById('boxe-step-counter').textContent = `${boxeTimer.stepIdx + 1} / ${session.steps.length}`;
+      document.getElementById('boxe-current-title').textContent = step.title;
+      document.getElementById('boxe-current-cue').textContent = step.cue;
+      document.getElementById('boxe-clock').textContent = formatTime(boxeTimer.remaining);
+      document.getElementById('boxe-progress-bar').style.width = `${step.dur > 0 ? ((step.dur - boxeTimer.remaining) / step.dur) * 100 : 100}%`;
+      document.getElementById('boxe-btn-toggle').textContent = boxeTimer.running ? 'Pause' : (boxeTimer.remaining < step.dur ? 'Reprendre' : 'Démarrer');
+    }
+
+    // ===================== RENDER HEADER =====================
+    function renderHeaderControls() {
+      document.querySelectorAll('.sleep-btn').forEach(btn => {
+        const active = btn.dataset.sleep === state.sleep;
+        btn.style.background = active ? '#0F172A' : '#FFFFFF';
+        btn.style.color = active ? '#FFFFFF' : '#475569';
+        btn.style.borderColor = active ? '#0F172A' : '#CBD5E1';
+      });
+      const sleepTxt = state.sleep === 'short' ? 'RPE -1,0' : state.sleep === 'medium' ? 'RPE -0,5' : 'RPE 0';
+      const sleepCls = state.sleep === 'short' ? 'badge-red' : state.sleep === 'medium' ? 'badge-amber' : 'badge-green';
+      document.getElementById('sleep-rpe-badge').textContent = sleepTxt;
+      document.getElementById('sleep-rpe-badge').className = `${sleepCls} text-xs font-mono font-semibold px-2 py-0.5 rounded`;
+      document.getElementById('mob-pill-sleep').textContent = `Sommeil · ${sleepTxt}`;
+      document.getElementById('mob-pill-sleep').className = `${sleepCls} text-xs font-mono font-semibold px-2 py-0.5 rounded-md`;
+
+      document.querySelectorAll('.wrist-btn').forEach(btn => {
+        const active = btn.dataset.wrist === state.wrist;
+        btn.style.background = active ? '#0F172A' : '#FFFFFF';
+        btn.style.color = active ? '#FFFFFF' : '#475569';
+        btn.style.borderColor = active ? '#0F172A' : '#CBD5E1';
+      });
+      const wristTxt = state.wrist === 'green' ? 'Poignet Vert' : state.wrist === 'orange' ? 'Poignet Orange' : 'Poignet Rouge';
+      const wristCls = state.wrist === 'green' ? 'badge-green' : state.wrist === 'orange' ? 'badge-amber' : 'badge-red';
+      document.getElementById('wrist-status-badge').textContent = wristTxt;
+      document.getElementById('wrist-status-badge').className = `${wristCls} text-xs font-semibold px-2 py-0.5 rounded`;
+      document.getElementById('mob-pill-wrist').textContent = wristTxt;
+      document.getElementById('mob-pill-wrist').className = `${wristCls} text-xs font-semibold px-2 py-0.5 rounded-md`;
+
+      document.getElementById('sw-week-select').value = String(state.swWeek);
+      document.getElementById('mob-pill-sw').textContent = SW_WEEKS[state.swWeek].code;
+      document.getElementById('toggle-autotimer').checked = !!state.autoRestTimer;
+
+      const allSessions = PLANNING.flatMap(d => d.sessions).filter(s => s.load !== 'repos');
+      const doneCount = allSessions.filter(s => state.checkedSessions[s.id]).length;
+      document.getElementById('weekly-progress-text').textContent = `${doneCount} / ${allSessions.length}`;
+      document.getElementById('mob-pill-week').textContent = `${doneCount}/${allSessions.length} faites`;
+      document.getElementById('weekly-progress-bar').style.width = `${Math.round((doneCount / allSessions.length) * 100)}%`;
+
+      const alertBox = document.getElementById('contextual-alert');
+      const messages = [];
+      if (state.sleep === 'short') messages.push('<strong>Sommeil &lt; 6h :</strong> RPE abaissés de -1,0. Garde ton EF obligatoire de Jeudi 19h en Zone 2 très douce et supprime l’EF #2 optionnelle du dimanche.');
+      if (state.wrist === 'orange') messages.push('<strong>Poignet Orange :</strong> Dips → Hammer Seated Dip (2 sér. eff.) · Straps dès S1 aux Tractions.');
+      if (state.wrist === 'red') messages.push('<strong>Poignet Rouge :</strong> Stop Dips, Tractions et sac de boxe. Poulies & shadowboxing uniquement.');
+      if (messages.length) {
+        alertBox.classList.remove('hidden');
+        alertBox.className = 'rounded-xl p-3 text-xs space-y-1 ' + (state.wrist === 'red' || state.sleep === 'short' ? 'badge-red' : 'badge-amber');
+        alertBox.innerHTML = messages.map(m => `<div>${m}</div>`).join('');
+      } else {
+        alertBox.classList.add('hidden');
+      }
+    }
+
+    // ===================== RENDER TABLEAU DE BORD (NEW!) =====================
+    function renderDashboard() {
+      const todayIdx = getTodayPlanIdx();
+      const today = PLANNING[todayIdx];
+      const sw = SW_WEEKS[state.swWeek];
+      const allActive = PLANNING.flatMap(d => d.sessions).filter(s => s.load !== 'repos');
+      const doneTotal = allActive.filter(s => state.checkedSessions[s.id]).length;
+      const pctTotal = Math.round((doneTotal / allActive.length) * 100);
+
+      const byCat = cat => {
+        const list = allActive.filter(s => s.cat === cat);
+        const done = list.filter(s => state.checkedSessions[s.id]).length;
+        return { done, total: list.length };
+      };
+      const muscuStat = byCat('muscu'), runStat = byCat('run'), boxeStat = byCat('boxe');
+      const doneProphy = THURSDAY_ROUTINE.filter(r => state.checkedProphy[r.id]).length;
+
+      // 1. Today Hero Card
+      const primaryLinkSession = today.sessions.find(s => s.link) || today.sessions[0];
+      const hero = document.getElementById('dash-today-hero');
+      hero.innerHTML = `
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-2 min-w-0">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="badge-blue text-xs font-bold px-2.5 py-0.5 rounded-full">Aujourd'hui &middot; ${today.day}</span>
+              <span class="badge-gray text-xs font-mono px-2 py-0.5 rounded-md">${today.sessions.length > 1 ? 'Double s&eacute;ance (1 lourde max)' : (today.sessions[0].load === 'repos' ? 'Jour Repos SNC' : 'S&eacute;ance unique matin')}</span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold ink-main leading-snug">${today.sessions.map(s => s.title).join(' + ')}</h2>
+            <div class="flex flex-wrap gap-2 text-xs">
+              ${today.sessions.map(s => `
+                <span class="ai-subtle px-2.5 py-1 rounded-lg font-medium ink-sub">
+                  <strong class="ink-main">${s.slot}</strong> &middot; ${s.duration}
+                </span>
+              `).join('')}
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 shrink-0">
+            ${primaryLinkSession.link ? `
+              <button id="dash-btn-launch-today" type="button" class="btn-accent touch-btn px-4 py-2.5 rounded-xl text-sm font-bold cursor-pointer">
+                Lancer ${primaryLinkSession.title.split('(')[0].trim()} &rarr;
+              </button>
+            ` : ''}
+            <button id="dash-btn-goto-plan" type="button" class="btn-ghost touch-btn px-3.5 py-2.5 rounded-xl text-xs font-semibold cursor-pointer">
+              Voir la semaine
+            </button>
+          </div>
+        </div>
+      `;
+      document.getElementById('dash-btn-launch-today')?.addEventListener('click', () => {
+        const { tab, target } = primaryLinkSession.link;
+        if (tab === 'muscu') state.selectedWorkout = target;
+        if (tab === 'boxe') { state.selectedBoxe = target; loadBoxeStep(0, false); }
+        if (tab === 'prophy') state.prophyZone = target;
+        switchTab(tab);
+      });
+      document.getElementById('dash-btn-goto-plan').addEventListener('click', () => switchTab('planning'));
+
+      // 2. 4 Executive KPI Cards (with SVG Progress Ring)
+      const r = 22, circ = 2 * Math.PI * r, dashOffset = circ - (pctTotal / 100) * circ;
+      const swPct = Math.round(((state.swWeek + 1) / SW_WEEKS.length) * 100);
+      const sleepDesc = state.sleep === 'short' ? 'Court (< 6h) · RPE -1,0' : state.sleep === 'medium' ? 'Moyen (6–7h) · RPE -0,5' : 'Optimal (> 7h30) · RPE 0';
+      const wristDesc = state.wrist === 'green' ? 'Feu Vert (0–2/10)' : state.wrist === 'orange' ? 'Feu Orange · Seated Dip' : 'Feu Rouge · Poulies';
+      const wristBadge = state.wrist === 'green' ? 'badge-green' : state.wrist === 'orange' ? 'badge-amber' : 'badge-red';
+
+      document.getElementById('dash-kpi-grid').innerHTML = `
+        <div class="ai-card rounded-2xl p-4 flex items-center justify-between gap-3">
+          <div class="space-y-1">
+            <div class="text-xs font-semibold ink-muted uppercase tracking-wide">Semaine</div>
+            <div class="text-2xl font-bold font-mono ink-main">${doneTotal}<span class="text-sm font-normal ink-muted">/${allActive.length}</span></div>
+            <div class="text-xs ink-sub">Muscu ${muscuStat.done}/${muscuStat.total} &middot; Run ${runStat.done}/${runStat.total} &middot; Boxe ${boxeStat.done}/${boxeStat.total}</div>
+          </div>
+          <svg class="w-14 h-14 shrink-0 -rotate-90" viewBox="0 0 56 56" aria-hidden="true">
+            <circle cx="28" cy="28" r="${r}" fill="none" stroke="#E2E8F0" stroke-width="5" />
+            <circle cx="28" cy="28" r="${r}" fill="none" stroke="#2563EB" stroke-width="5" stroke-linecap="round" stroke-dasharray="${circ.toFixed(1)}" stroke-dashoffset="${dashOffset.toFixed(1)}" />
+          </svg>
+        </div>
+
+        <div class="ai-card rounded-2xl p-4 space-y-2 cursor-pointer" data-dash-tab="sw">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold ink-muted uppercase tracking-wide">Street Workout</span>
+            <span class="badge-blue text-xs font-mono font-bold px-2 py-0.5 rounded">${sw.code} / S8</span>
+          </div>
+          <div class="text-xs font-mono ink-main space-y-0.5">
+            <div>Tractions : <strong>${sw.pullups}</strong></div>
+            <div>Dips : <strong>${sw.dips}</strong></div>
+          </div>
+          <div class="w-full h-1.5 rounded-full progress-track overflow-hidden">
+            <div class="h-full progress-fill-green" style="width:${swPct}%"></div>
+          </div>
+        </div>
+
+        <div class="ai-card rounded-2xl p-4 space-y-2 cursor-pointer" data-dash-tab="prophy">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold ink-muted uppercase tracking-wide">R&eacute;cup &amp; Poignet</span>
+            <span class="${wristBadge} text-xs font-semibold px-2 py-0.5 rounded">${wristDesc.split('·')[0].trim()}</span>
+          </div>
+          <div class="text-sm font-bold ink-main">${sleepDesc}</div>
+          <div class="text-xs ink-sub">Routine Dim : <strong class="font-mono ink-main">${doneProphy}/${THURSDAY_ROUTINE.length}</strong> &middot; DL&rarr;Frac : <strong class="font-mono ink-main">57h30</strong></div>
+        </div>
+
+        <div class="ai-card rounded-2xl p-4 space-y-2 cursor-pointer" data-dash-tab="muscu">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold ink-muted uppercase tracking-wide">Format Muscu</span>
+            <span class="badge-amber text-xs font-mono font-semibold px-2 py-0.5 rounded">57&ndash;66 min</span>
+          </div>
+          <div class="text-sm font-bold ink-main">2 s&eacute;r. eff. machines &middot; 4&times; Cl&eacute;s</div>
+          <div class="text-xs ink-sub">Biceps : <strong class="font-mono ink-main">9 + 8 s&eacute;r.</strong> (100% neutre)</div>
+        </div>
+      `;
+      document.querySelectorAll('[data-dash-tab]').forEach(el => el.addEventListener('click', () => switchTab(el.dataset.dashTab)));
+
+      // 3. 7-Day Load & Schedule Visual Matrix (Matin Salle vs Soir/WE Course)
+      const loadBox = document.getElementById('dash-load-chart');
+      loadBox.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 class="text-base font-bold ink-main">R&eacute;partition 7 Jours &mdash; Salle Matin / Course Soir &amp; WE</h3>
+            <p class="text-xs ink-muted">1 s&eacute;ance lourde max/jour &middot; EF obligatoire Jeudi 19h &middot; D&eacute;charge SNC Jeudi &amp; Dimanche</p>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="badge-amber px-2 py-0.5 rounded font-semibold">Lourde</span>
+            <span class="badge-green px-2 py-0.5 rounded font-semibold">L&eacute;g&egrave;re</span>
+            <span class="badge-gray px-2 py-0.5 rounded font-semibold">Repos</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-7 gap-1.5 sm:gap-2 pt-1">
+          ${PLANNING.map((d, idx) => {
+            const morning = d.sessions.find(s => s.period === 'matin');
+            const evening = d.sessions.find(s => s.period === 'soir');
+            const isToday = idx === todayIdx;
+            const slotPill = s => {
+              if (!s) return `<div class="h-12 rounded-lg border border-dashed border-[#E2E8F0] flex items-center justify-center text-xs ink-muted">&mdash;</div>`;
+              const done = !!state.checkedSessions[s.id];
+              const cls = done ? 'badge-blue' : loadBadgeClass(s.load);
+              const shortTitle = s.short || s.title.split('(')[0].trim();
+              return `<div class="h-12 rounded-lg px-1 flex flex-col items-center justify-center text-center ${cls}"><span class="text-xs font-bold leading-tight">${done ? '✓ ' : ''}${shortTitle}</span></div>`;
+            };
+            return `
+              <button type="button" data-dash-day="${idx}" class="rounded-xl p-1.5 space-y-1.5 text-center cursor-pointer transition-all ${isToday ? 'bg-[#EFF6FF] border border-[#93C5FD]' : 'bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#94A3B8]'}">
+                <div class="text-xs font-bold ${isToday ? 'text-[#1D4ED8]' : 'ink-main'}">${d.short}</div>
+                ${slotPill(morning)}${slotPill(evening)}
+              </button>
+            `;
+          }).join('')}
+        </div>
+        <div class="flex items-center justify-between text-xs ink-muted pt-1">
+          <span>Ligne haute : <strong class="ink-sub">Matin (Salle On Air)</strong></span>
+          <span>Ligne basse : <strong class="ink-sub">Soir / WE (Course &middot; Jeu 19h)</strong></span>
+        </div>
+      `;
+      loadBox.querySelectorAll('[data-dash-day]').forEach(btn => {
+        btn.addEventListener('click', () => { state.selectedDay = Number(btn.dataset.dashDay); saveState(); switchTab('planning'); });
+      });
+
+      // 4. Key Strength Benchmarks Card
+      const benchItems = [
+        { label: 'Back Squat (4×5)', id: 'l1-squat', workout: 'lower1' },
+        { label: 'Deadlift (4×4)', id: 'l2-dl', workout: 'lower2' },
+        { label: 'Incliné Hammer (2 eff.)', id: 'u1-inc', workout: 'upper1' },
+        { label: 'Couché Hammer (2 eff.)', id: 'u2-chest', workout: 'upper2' },
+        { label: 'Rowing Hammer (2 eff.)', id: 'u2-row', workout: 'upper2' },
+        { label: 'Curl Marteau Corde (4×)', id: 'u2-s2b', workout: 'upper2' }
+      ];
+      const benchBox = document.getElementById('dash-benchmarks');
+      benchBox.innerHTML = `
+        <div class="flex items-center justify-between">
+          <h3 class="text-base font-bold ink-main">Rep&egrave;res Charges Actuelles</h3>
+          <span class="text-xs ink-muted">VMA ${state.vma} km/h</span>
+        </div>
+        <div class="space-y-1.5">
+          ${benchItems.map(b => {
+            const val = state.weights[b.id];
+            return `
+              <button type="button" data-bench-w="${b.workout}" class="w-full ai-subtle hover:border-[#2563EB] rounded-xl px-3 py-2 flex items-center justify-between text-xs cursor-pointer">
+                <span class="font-medium ink-sub">${b.label}</span>
+                <span class="font-mono font-bold ${val ? 'ink-main' : 'ink-muted'}">${val ? val + ' kg' : 'À saisir →'}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+      `;
+      benchBox.querySelectorAll('[data-bench-w]').forEach(btn => btn.addEventListener('click', () => { state.selectedWorkout = btn.dataset.benchW; switchTab('muscu'); }));
+
+      // 5. Quick Actions
+      const qa = document.getElementById('dash-quick-actions');
+      qa.innerHTML = `
+        <h3 class="text-base font-bold ink-main">Acc&egrave;s Rapide en Salle</h3>
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" data-qa="muscu:upper1" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
+            <div class="text-xs font-bold ink-main">Upper 1 &middot; Mar (65m)</div>
+            <div class="text-xs ink-muted">Dips 4&times; &middot; Biceps Chef Long</div>
+          </button>
+          <button type="button" data-qa="muscu:lower1" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
+            <div class="text-xs font-bold ink-main">Lower 1 &middot; Mer (57m)</div>
+            <div class="text-xs ink-muted">Squat 4&times;5 &middot; Genoux/Achille</div>
+          </button>
+          <button type="button" data-qa="muscu:upper2" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
+            <div class="text-xs font-bold ink-main">Upper 2 &middot; Ven (66m)</div>
+            <div class="text-xs ink-muted">Tractions 4&times; &middot; Biceps+</div>
+          </button>
+          <button type="button" data-qa="muscu:lower2" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
+            <div class="text-xs font-bold ink-main">Lower 2 &middot; Sam (58m)</div>
+            <div class="text-xs ink-muted">Deadlift 4&times;4 &middot; Sol&eacute;aire/TFL</div>
+          </button>
+          <button type="button" data-qa="boxe:boxeA" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
+            <div class="text-xs font-bold ink-main">Chrono Boxe Solo</div>
+            <div class="text-xs ink-muted">Lun A (28m) &amp; Jeu B (29m)</div>
+          </button>
+          <button type="button" data-qa="prophy:all" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
+            <div class="text-xs font-bold ink-main">Prophylaxie &amp; Dim</div>
+            <div class="text-xs ink-muted">5 zones + Routine 15 min</div>
+          </button>
+        </div>
+      `;
+      qa.querySelectorAll('[data-qa]').forEach(btn => btn.addEventListener('click', () => {
+        const [tab, target] = btn.dataset.qa.split(':');
+        if (tab === 'muscu') state.selectedWorkout = target;
+        if (tab === 'boxe') { state.selectedBoxe = target; loadBoxeStep(0, false); }
+        if (tab === 'prophy') state.prophyZone = target;
+        switchTab(tab);
+      }));
+
+      // 6. Recent History Card
+      const histBox = document.getElementById('dash-history-card');
+      if (!state.history || state.history.length === 0) {
+        histBox.innerHTML = `
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold ink-main">Derni&egrave;res S&eacute;ances Archiv&eacute;es</h3>
+            <span class="badge-gray text-xs font-mono px-2 py-0.5 rounded">0</span>
+          </div>
+          <p class="text-xs ink-muted leading-relaxed">Termine une s&eacute;ance dans l'onglet <strong>Muscu</strong> puis appuie sur &laquo; Valider &amp; archiver cette s&eacute;ance &raquo; pour voir ton historique, tes s&eacute;ries et tes temps (&le; 1h15) ici.</p>
+        `;
+      } else {
+        histBox.innerHTML = `
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold ink-main">Derni&egrave;res S&eacute;ances (${state.history.length})</h3>
+            <button id="dash-clear-hist" type="button" class="text-xs ink-muted hover:underline cursor-pointer">Vider</button>
+          </div>
+          <div class="space-y-2">
+            ${state.history.slice(0, 5).map(h => `
+              <div class="ai-subtle rounded-xl px-3 py-2 flex items-center justify-between gap-2 text-xs">
+                <div><strong class="ink-main">${h.workout}</strong> <span class="ink-muted ml-1.5">${h.date}</span></div>
+                <div class="flex items-center gap-2 font-mono">
+                  <span class="ink-sub">${h.setsDone} s&eacute;r.</span>
+                  <span class="badge-blue px-2 py-0.5 rounded font-bold">${h.duration}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        document.getElementById('dash-clear-hist')?.addEventListener('click', () => { state.history = []; saveState(); renderDashboard(); });
+      }
+    }
+
+    // ===================== RENDER PLANNING =====================
+    function renderPaceCalculator() {
+      const inp = document.getElementById('vma-input');
+      inp.value = state.vma;
+      const vma = Math.max(10, Math.min(22, Number(state.vma) || 15));
+      const efLow = paceFromSpeed(vma * 0.65), efHigh = paceFromSpeed(vma * 0.72);
+      const seuil = paceFromSpeed(vma * 0.89), frac = paceFromSpeed(vma * 1.0);
+      const t400 = Math.round((0.4 / vma) * 3600);
+
+      document.getElementById('pace-zones-grid').innerHTML = `
+        <div class="badge-green rounded-xl p-3 space-y-0.5">
+          <div class="text-xs font-semibold">EF Zone 2 (65&ndash;72% VMA)</div>
+          <div class="text-lg font-bold font-mono">${efHigh} &ndash; ${efLow}</div>
+          <div class="text-xs opacity-85">Jeudi 19h (obligatoire) &amp; Dim (opt.)</div>
+        </div>
+        <div class="badge-blue rounded-xl p-3 space-y-0.5">
+          <div class="text-xs font-semibold">Seuil 1000m (89% VMA)</div>
+          <div class="text-lg font-bold font-mono">${seuil}</div>
+          <div class="text-xs opacity-85">Fractionn&eacute; C (Lundi soir)</div>
+        </div>
+        <div class="badge-amber rounded-xl p-3 space-y-0.5">
+          <div class="text-xs font-semibold">VMA 30/30 &amp; 400m (100%)</div>
+          <div class="text-lg font-bold font-mono">${frac} <span class="text-xs font-normal">(${formatTime(t400)}/400m)</span></div>
+          <div class="text-xs opacity-85">Fractionn&eacute; A &amp; B (Lundi soir)</div>
+        </div>
+      `;
+    }
+
+    function renderPlanning() {
+      const strip = document.getElementById('mobile-day-strip');
+      const todayIdx = getTodayPlanIdx();
+      strip.innerHTML = PLANNING.map((d, idx) => {
+        const active = idx === state.selectedDay;
+        const activeList = d.sessions.filter(s => s.load !== 'repos');
+        const allDone = activeList.length > 0 && activeList.every(s => state.checkedSessions[s.id]);
+        return `
+          <button type="button" data-mday="${idx}" class="touch-btn px-3.5 py-2 rounded-xl border text-xs font-bold shrink-0 cursor-pointer flex flex-col items-center gap-0.5"
+            style="${active ? 'background:#0F172A; color:#FFFFFF; border-color:#0F172A;' : 'background:#FFFFFF; color:#0F172A; border-color:#E2E8F0;'}">
+            <span>${d.short}${idx === todayIdx ? ' •' : ''}</span>
+            <span class="text-xs font-normal opacity-80">${allDone ? '✓' : (d.sessions[0].load === 'repos' ? 'Off' : d.sessions.length + '×')}</span>
+          </button>
+        `;
+      }).join('');
+      strip.querySelectorAll('[data-mday]').forEach(btn => btn.addEventListener('click', () => { state.selectedDay = Number(btn.dataset.mday); saveState(); renderPlanning(); }));
+
+      const isMobile = window.innerWidth < 768;
+      const daysToShow = isMobile ? [{ d: PLANNING[state.selectedDay], idx: state.selectedDay }] : PLANNING.map((d, idx) => ({ d, idx }));
+
+      const grid = document.getElementById('planning-grid');
+      grid.innerHTML = daysToShow.map(({ d, idx }) => {
+        const selected = idx === state.selectedDay;
+        const borderStyle = selected ? 'border-color:#2563EB; box-shadow:0 0 0 1px #2563EB;' : '';
+        const sessionHtml = d.sessions.map(s => {
+          const checked = !!state.checkedSessions[s.id];
+          const skipHint = s.optional && state.sleep === 'short';
+          return `
+            <div class="ai-subtle rounded-xl p-3 space-y-2 ${skipHint ? 'opacity-60' : ''}">
+              <div class="flex items-start justify-between gap-1.5">
+                <span class="text-xs font-mono ink-muted">${s.slot}</span>
+                <span class="${loadBadgeClass(s.load)} text-xs font-semibold px-1.5 py-0.5 rounded shrink-0">${loadLabel(s.load)}</span>
+              </div>
+              <div class="text-sm md:text-xs font-bold leading-snug ${checked ? 'line-through ink-muted' : 'ink-main'}">${s.title}</div>
+              ${skipHint ? '<div class="text-xs font-medium" style="color:#DC2626">Suggéré : repos (sommeil &lt; 6h)</div>' : ''}
+              <div class="flex items-center justify-between pt-1">
+                ${s.load !== 'repos' ? `
+                  <label class="flex items-center gap-2 text-xs ink-sub cursor-pointer py-1" onclick="event.stopPropagation()">
+                    <input type="checkbox" data-session-check="${s.id}" ${checked ? 'checked' : ''} class="w-4 h-4 accent-[#2563EB] cursor-pointer" />
+                    Fait
+                  </label>
+                ` : '<span class="text-xs ink-muted">SNC &amp; Sommeil</span>'}
+                ${s.link ? `
+                  <button type="button" data-jump-tab="${s.link.tab}" data-jump-target="${s.link.target}" onclick="event.stopPropagation()" class="badge-blue text-xs font-semibold cursor-pointer py-1 px-2.5 rounded-lg">Ouvrir &rarr;</button>
+                ` : `<span class="text-xs font-mono ink-muted">${s.duration}</span>`}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div data-day-idx="${idx}" class="ai-card rounded-2xl p-3 flex flex-col gap-2.5 cursor-pointer" style="${borderStyle}">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-bold ink-main">${d.day} ${idx === todayIdx ? '<span class="text-xs font-semibold" style="color:#2563EB">(Auj.)</span>' : ''}</span>
+              <span class="text-xs ink-muted">${d.sessions.length > 1 ? 'Doublé' : (d.sessions[0].load === 'repos' ? 'Off' : 'Simple')}</span>
+            </div>
+            <div class="space-y-2 flex-1">${sessionHtml}</div>
+          </div>
+        `;
+      }).join('');
+
+      const d = PLANNING[state.selectedDay];
+      document.getElementById('day-detail-card').innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-[#E5E7EB]">
+          <h3 class="text-sm sm:text-base font-bold ink-main">${d.day} &mdash; Justification Physiologique</h3>
+          <span class="text-xs font-mono ink-muted">${d.sessions.map(s => s.duration).join(' + ')}</span>
+        </div>
+        <p class="text-xs sm:text-sm ink-sub mt-2.5 leading-relaxed">${d.note}</p>
+      `;
+
+      grid.querySelectorAll('[data-day-idx]').forEach(el => el.addEventListener('click', () => { state.selectedDay = Number(el.dataset.dayIdx); saveState(); renderPlanning(); }));
+      grid.querySelectorAll('[data-session-check]').forEach(cb => cb.addEventListener('change', () => { state.checkedSessions[cb.dataset.sessionCheck] = cb.checked; saveState(); renderHeaderControls(); renderPlanning(); }));
+      grid.querySelectorAll('[data-jump-tab]').forEach(btn => btn.addEventListener('click', () => {
+        const tab = btn.dataset.jumpTab, target = btn.dataset.jumpTarget;
+        if (tab === 'muscu') state.selectedWorkout = target;
+        if (tab === 'boxe') { state.selectedBoxe = target; loadBoxeStep(0, false); }
+        if (tab === 'prophy') state.prophyZone = target;
+        switchTab(tab);
+      }));
+
+      renderPaceCalculator();
+    }
+
+    // ===================== RENDER MUSCU =====================
+    function renderMuscu() {
+      const selector = document.getElementById('muscu-selector');
+      selector.innerHTML = Object.values(WORKOUTS).map(w => {
+        const active = w.id === state.selectedWorkout;
+        return `<button type="button" data-workout-id="${w.id}" class="touch-btn px-3.5 py-2 rounded-xl border text-xs sm:text-sm font-bold cursor-pointer" style="${active ? 'background:#0F172A; color:#FFFFFF; border-color:#0F172A;' : 'background:#FFFFFF; color:#475569; border-color:#E2E8F0;'}">${w.name}</button>`;
+      }).join('');
+      selector.querySelectorAll('[data-workout-id]').forEach(btn => btn.addEventListener('click', () => { state.selectedWorkout = btn.dataset.workoutId; saveState(); renderMuscu(); }));
+
+      const w = WORKOUTS[state.selectedWorkout];
+      document.getElementById('muscu-duration-badge').textContent = `${w.slot} · ${w.duration} · ${w.subtitle}`;
+
+      const doneW = w.warmupSteps.filter((_, i) => state.checkedWarmups[`${w.id}-w-${i}`]).length;
+      const warmupBox = document.getElementById('muscu-warmup');
+      warmupBox.innerHTML = `
+        <button id="btn-toggle-warmup" type="button" class="w-full flex items-center justify-between gap-2 text-left cursor-pointer">
+          <div>
+            <div class="text-sm font-bold ink-main">${w.warmupTitle}</div>
+            <div class="text-xs ink-muted">${doneW} / ${w.warmupSteps.length} valid&eacute;s &middot; Tap pour ${state.warmupOpen ? 'masquer' : 'd&eacute;plier'}</div>
+          </div>
+          <span class="badge-gray text-xs font-mono px-2.5 py-1 rounded-lg">${state.warmupOpen ? '▲' : '▼'}</span>
+        </button>
+        ${state.warmupOpen ? `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2.5 border-t border-[#E5E7EB]">
+            ${w.warmupSteps.map((step, i) => {
+              const key = `${w.id}-w-${i}`, done = !!state.checkedWarmups[key];
+              return `<label class="ai-subtle rounded-xl px-3 py-2.5 flex items-start gap-2.5 text-xs cursor-pointer"><input type="checkbox" data-warmup-key="${key}" ${done ? 'checked' : ''} class="mt-0.5 w-4 h-4 accent-[#2563EB] cursor-pointer" /><span class="${done ? 'line-through ink-muted' : 'ink-sub'}">${step}</span></label>`;
+            }).join('')}
+          </div>
+        ` : ''}
+      `;
+      document.getElementById('btn-toggle-warmup').addEventListener('click', () => { state.warmupOpen = !state.warmupOpen; saveState(); renderMuscu(); });
+      warmupBox.querySelectorAll('[data-warmup-key]').forEach(cb => cb.addEventListener('change', () => { state.checkedWarmups[cb.dataset.warmupKey] = cb.checked; saveState(); renderMuscu(); }));
+
+      const sw = SW_WEEKS[state.swWeek];
+      const container = document.getElementById('muscu-exercises');
+      container.innerHTML = w.blocks.map(block => {
+        const isSS = block.type === 'superset';
+        const cardsHtml = block.items.map(ex => {
+          let displayName = ex.name, displayReps = ex.reps, wristAlert = false, setCount = ex.swKey && (sw.id === 4 || sw.id === 7) ? 3 : ex.sets;
+          if (ex.swKey === 'dips') {
+            displayReps = `${sw.code} : ${sw.dips}`;
+            if (state.wrist === 'orange') { displayName = ex.altOrange; displayReps = '8 – 10 (+ 1 chauffe)'; setCount = 2; wristAlert = true; }
+            if (state.wrist === 'red') { displayName = ex.altRed; displayReps = '12'; setCount = 2; wristAlert = true; }
+          } else if (ex.swKey === 'pullups') {
+            displayReps = `${sw.code} : ${sw.pullups}`;
+            if (state.wrist === 'orange') { displayName = ex.altOrange; wristAlert = true; }
+            if (state.wrist === 'red') { displayName = ex.altRed; displayReps = '8 – 10 (+ 1 chauffe)'; setCount = 2; wristAlert = true; }
+          }
+
+          const weightVal = state.weights[ex.id] ?? '';
+          const noteVal = state.notes[ex.id] ?? '';
+          const setsHtml = Array.from({ length: setCount }, (_, i) => {
+            const setKey = `${ex.id}-s${i}`, done = !!state.checkedSets[setKey];
+            return `<button type="button" data-set-key="${setKey}" data-ex-rest="${ex.restSec}" data-ex-name="${ex.name}" data-done="${done}" class="set-pill border rounded-xl px-3 text-xs font-mono font-bold cursor-pointer">${done ? '✓ ' : ''}S${i + 1}</button>`;
+          }).join('');
+
+          return `
+            <div class="ai-card rounded-2xl p-3.5 sm:p-4 space-y-3 ${isSS ? 'superset-rail' : ''}">
+              <div class="flex items-start justify-between gap-2">
+                <div class="space-y-1 min-w-0">
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    ${ex.tag ? `<span class="badge-blue text-xs font-mono font-bold px-2 py-0.5 rounded">${ex.tag}</span>` : ''}
+                    ${ex.effectiveTag ? `<span class="badge-amber text-xs font-mono font-bold px-2 py-0.5 rounded">${ex.effectiveTag}</span>` : ''}
+                    <h4 class="text-sm sm:text-base font-bold ink-main leading-snug">${displayName}</h4>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs ink-muted">
+                    <span>${ex.equip}</span>
+                    <span>&middot;</span>
+                    <span class="font-mono font-bold ink-main">${setCount}&times; ${displayReps}</span>
+                    <span>&middot;</span>
+                    <span>RPE <strong class="font-mono ink-main">${formatRpe(ex.baseRpe)}</strong></span>
+                  </div>
+                </div>
+                <button type="button" data-rest-sec="${ex.restSec}" data-rest-name="${ex.name}" class="btn-ghost touch-btn px-2.5 rounded-xl text-xs font-mono font-bold shrink-0 cursor-pointer flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  ${ex.restLabel}
+                </button>
+              </div>
+
+              <p class="text-xs ink-sub leading-relaxed">${ex.cue}</p>
+              ${ex.wristCue ? `<div class="${wristAlert ? 'badge-red' : 'badge-gray'} rounded-xl px-3 py-2 text-xs"><strong>Poignet gauche :</strong> ${ex.wristCue}</div>` : ''}
+
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2.5 border-t border-[#E5E7EB]">
+                <div class="flex flex-wrap items-center gap-2">${setsHtml}</div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs ink-muted mr-0.5">kg</span>
+                  <button type="button" data-step-weight="${ex.id}" data-delta="-2.5" class="btn-ghost touch-btn w-10 rounded-xl text-sm font-bold cursor-pointer">&minus;</button>
+                  <input type="text" inputmode="decimal" placeholder="—" value="${weightVal}" data-weight-id="${ex.id}" class="touch-btn w-16 px-2 rounded-xl text-xs font-mono text-center font-bold" />
+                  <button type="button" data-step-weight="${ex.id}" data-delta="2.5" class="btn-ghost touch-btn w-10 rounded-xl text-sm font-bold cursor-pointer">+</button>
+                </div>
+              </div>
+
+              <input type="text" placeholder="Note perso (ex. siège cran 4, poignée MAG...)" value="${noteVal.replace(/"/g, '&quot;')}" data-note-id="${ex.id}" class="w-full px-3 py-2 rounded-xl text-xs" />
+            </div>
+          `;
+        }).join('');
+
+        return isSS ? `
+          <div class="space-y-2">
+            <div class="text-xs font-bold uppercase tracking-wide px-1" style="color:#2563EB">${block.label}</div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">${cardsHtml}</div>
+          </div>
+        ` : cardsHtml;
+      }).join('');
+
+      container.querySelectorAll('[data-set-key]').forEach(btn => btn.addEventListener('click', () => {
+        const key = btn.dataset.setKey, nextDone = !state.checkedSets[key];
+        state.checkedSets[key] = nextDone; saveState();
+        if (nextDone && state.autoRestTimer) startRestTimer(Number(btn.dataset.exRest), btn.dataset.exName);
+        renderMuscu();
+      }));
+      container.querySelectorAll('[data-weight-id]').forEach(inp => inp.addEventListener('input', () => { state.weights[inp.dataset.weightId] = inp.value; saveState(); }));
+      container.querySelectorAll('[data-step-weight]').forEach(btn => btn.addEventListener('click', () => {
+        const id = btn.dataset.stepWeight, delta = Number(btn.dataset.delta);
+        const cur = parseFloat(String(state.weights[id] || '0').replace(',', '.')) || 0;
+        state.weights[id] = String(Math.max(0, Math.round((cur + delta) * 10) / 10));
+        saveState(); renderMuscu();
+      }));
+      container.querySelectorAll('[data-note-id]').forEach(inp => inp.addEventListener('input', () => { state.notes[inp.dataset.noteId] = inp.value; saveState(); }));
+      container.querySelectorAll('[data-rest-sec]').forEach(btn => btn.addEventListener('click', () => startRestTimer(Number(btn.dataset.restSec), btn.dataset.restName)));
+    }
+
+    document.getElementById('btn-finish-workout').addEventListener('click', () => {
+      const w = WORKOUTS[state.selectedWorkout];
+      const allExIds = w.blocks.flatMap(b => b.items.map(i => i.id));
+      const setsDone = Object.entries(state.checkedSets).filter(([k, v]) => v && allExIds.some(id => k.startsWith(id + '-s'))).length;
+      const dateStr = new Date().toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+      state.history = [{ workout: w.name, date: dateStr, setsDone, duration: stopwatch.elapsed > 0 ? formatTime(stopwatch.elapsed) : w.duration.split(' ')[0] }, ...(state.history || [])].slice(0, 20);
+      if (w.planSessionId) state.checkedSessions[w.planSessionId] = true;
+      saveState(); renderHeaderControls();
+      showToast(`${w.name} archivée et ajoutée au Tableau de bord !`);
+    });
+
+    // ===================== RENDER STREET WORKOUT =====================
+    function renderStreetWorkout() {
+      const chart = document.getElementById('sw-chart');
+      const W = 520, H = 180, padL = 32, padR = 14, padT = 16, padB = 26, maxVal = 36;
+      const xStep = (W - padL - padR) / (SW_WEEKS.length - 1);
+      const yScale = v => H - padB - (v / maxVal) * (H - padT - padB);
+      const toPath = pts => pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
+      const pullPts = SW_WEEKS.map((w, i) => [padL + i * xStep, yScale(w.pullVol)]);
+      const dipPts = SW_WEEKS.map((w, i) => [padL + i * xStep, yScale(w.dipVol)]);
+      const activeX = padL + state.swWeek * xStep, deloadX = padL + 4 * xStep;
+
+      chart.innerHTML = `
+        <svg viewBox="0 0 ${W} ${H}" class="w-full h-auto min-w-[360px]" role="img" aria-label="Progression Street Workout 8 semaines">
+          <rect x="${deloadX - 24}" y="${padT}" width="48" height="${H - padT - padB}" rx="6" fill="#FEF3C7" />
+          <text x="${deloadX}" y="${padT + 12}" text-anchor="middle" fill="#B45309" font-size="10" font-weight="700">Décharge</text>
+          <line x1="${activeX}" y1="${padT}" x2="${activeX}" y2="${H - padB}" stroke="#2563EB" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.7" />
+          ${[10, 20, 30].map(v => `<line x1="${padL}" y1="${yScale(v)}" x2="${W - padR}" y2="${yScale(v)}" stroke="#E2E8F0" stroke-dasharray="3 3"/><text x="${padL - 6}" y="${yScale(v) + 4}" text-anchor="end" fill="#64748B" font-size="11" font-family="monospace">${v}</text>`).join('')}
+          <path d="${toPath(pullPts)}" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="${toPath(dipPts)}" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
+          ${SW_WEEKS.map((w, i) => {
+            const x = padL + i * xStep, isA = i === state.swWeek;
+            return `<circle cx="${x}" cy="${yScale(w.pullVol)}" r="${isA ? 5.5 : 3.5}" fill="#2563EB"/><circle cx="${x}" cy="${yScale(w.dipVol)}" r="${isA ? 5.5 : 3.5}" fill="#059669"/><text x="${x}" y="${H - 7}" text-anchor="middle" fill="${isA ? '#1D4ED8' : '#64748B'}" font-size="11" font-weight="${isA ? '700' : '500'}">${w.code}</text>`;
+          }).join('')}
+        </svg>
+      `;
+
+      const tbody = document.getElementById('sw-table-body');
+      tbody.innerHTML = SW_WEEKS.map((w, i) => {
+        const active = i === state.swWeek, validated = !!state.swValidated[w.code];
+        return `
+          <tr data-sw-row="${i}" class="border-b border-[#E5E7EB] cursor-pointer" style="${active ? 'background:#EFF6FF;' : ''}">
+            <td class="py-3 px-3 font-mono font-bold whitespace-nowrap ink-main">${w.code}${active ? ' <span class="badge-blue text-xs px-1.5 py-0.5 rounded">Actif</span>' : ''}</td>
+            <td class="py-3 px-3 text-xs ${i === 4 ? 'font-bold' : 'ink-sub'}" style="${i === 4 ? 'color:#B45309' : ''}">${w.phase}</td>
+            <td class="py-3 px-3 font-mono text-xs whitespace-nowrap ink-main">${w.pullups}</td>
+            <td class="py-3 px-3 font-mono text-xs whitespace-nowrap ink-main">${w.dips}</td>
+            <td class="py-3 px-3 font-mono text-xs ink-muted whitespace-nowrap">${w.rest}</td>
+            <td class="py-3 px-3 text-right" onclick="event.stopPropagation()">
+              <label class="inline-flex items-center gap-1.5 text-xs cursor-pointer ink-sub">
+                <input type="checkbox" data-sw-val="${w.code}" ${validated ? 'checked' : ''} class="w-4 h-4 accent-[#059669] cursor-pointer" />
+                ${validated ? 'OK' : '—'}
+              </label>
+            </td>
+          </tr>
+        `;
+      }).join('');
+      tbody.querySelectorAll('[data-sw-row]').forEach(tr => tr.addEventListener('click', () => { state.swWeek = Number(tr.dataset.swRow); saveState(); renderHeaderControls(); renderStreetWorkout(); renderMuscu(); }));
+      tbody.querySelectorAll('[data-sw-val]').forEach(cb => cb.addEventListener('change', () => { state.swValidated[cb.dataset.swVal] = cb.checked; saveState(); renderStreetWorkout(); }));
+    }
+
+    // ===================== RENDER BOXE =====================
+    function renderBoxeSelector() {
+      const sel = document.getElementById('boxe-selector');
+      sel.innerHTML = Object.values(BOXE_SESSIONS).map(b => {
+        const active = b.id === state.selectedBoxe;
+        return `<button type="button" data-boxe-id="${b.id}" class="touch-btn px-3.5 py-2 rounded-xl border text-xs sm:text-sm font-bold cursor-pointer" style="${active ? 'background:#0F172A; color:#FFFFFF; border-color:#0F172A;' : 'background:#FFFFFF; color:#475569; border-color:#E2E8F0;'}">${b.name}</button>`;
+      }).join('');
+      sel.querySelectorAll('[data-boxe-id]').forEach(btn => btn.addEventListener('click', () => { state.selectedBoxe = btn.dataset.boxeId; saveState(); renderBoxeSelector(); loadBoxeStep(0, false); }));
+    }
+    function renderBoxeBlocks() {
+      const session = BOXE_SESSIONS[state.selectedBoxe];
+      const box = document.getElementById('boxe-blocks');
+      box.innerHTML = `
+        <div class="ai-subtle rounded-xl px-3.5 py-2.5 text-xs ink-sub"><strong class="ink-main">${session.slot}</strong> &mdash; ${session.focus}</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          ${session.steps.map((s, idx) => `
+            <button type="button" data-boxe-step="${idx}" class="ai-card rounded-2xl p-3.5 text-left space-y-1 cursor-pointer" style="${idx === boxeTimer.stepIdx ? 'border-color:#2563EB; box-shadow:0 0 0 1px #2563EB;' : ''}">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-semibold" style="${s.type === 'work' ? 'color:#B45309' : 'color:#64748B'}">${s.block}</span>
+                <span class="font-mono text-xs font-bold ink-main">${formatTime(s.dur)}</span>
+              </div>
+              <div class="text-sm font-bold ink-main">${s.title}</div>
+              <p class="text-xs ink-sub leading-relaxed">${s.cue}</p>
+            </button>
+          `).join('')}
+        </div>
+      `;
+      box.querySelectorAll('[data-boxe-step]').forEach(btn => btn.addEventListener('click', () => loadBoxeStep(Number(btn.dataset.boxeStep), false)));
+    }
+
+    // ===================== RENDER PROPHYLAXIE =====================
+    function renderProphy() {
+      const filters = document.getElementById('prophy-filters');
+      const items = [{ id: 'all', label: 'Toutes (5)' }, ...PROPHYLAXIE_ZONES.map(z => ({ id: z.id, label: z.label.split('&')[0].trim() }))];
+      filters.innerHTML = items.map(f => {
+        const active = f.id === state.prophyZone;
+        return `<button type="button" data-prophy-zone="${f.id}" class="touch-btn px-3 py-1.5 rounded-xl border text-xs font-bold shrink-0 cursor-pointer" style="${active ? 'background:#0F172A; color:#FFFFFF; border-color:#0F172A;' : 'background:#FFFFFF; color:#475569; border-color:#E2E8F0;'}">${f.label}</button>`;
+      }).join('');
+      filters.querySelectorAll('[data-prophy-zone]').forEach(btn => btn.addEventListener('click', () => { state.prophyZone = btn.dataset.prophyZone; saveState(); renderProphy(); }));
+
+      const zonesBox = document.getElementById('prophy-zones');
+      const visible = state.prophyZone === 'all' ? PROPHYLAXIE_ZONES : PROPHYLAXIE_ZONES.filter(z => z.id === state.prophyZone);
+      zonesBox.innerHTML = visible.map(z => `
+        <div class="ai-card rounded-2xl p-4 sm:p-5 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-[#E5E7EB]">
+            <div class="space-y-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <h3 class="text-base font-bold ink-main">${z.label}</h3>
+                <span class="${z.badgeClass} text-xs font-semibold px-2 py-0.5 rounded">${z.priority}</span>
+              </div>
+              <p class="text-xs ink-sub">${z.summary}</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              ${z.sessions.map(s => `<button type="button" data-pjump-tab="${s.tab}" data-pjump-target="${s.target}" class="badge-blue px-2.5 py-1 rounded-lg text-xs font-semibold cursor-pointer">${s.label} &rarr;</button>`).join('')}
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+            ${z.protocols.map(p => `
+              <div class="ai-subtle rounded-xl p-3 flex flex-col justify-between gap-2">
+                <div class="space-y-1">
+                  <div class="text-xs font-bold ink-main">${p.name}</div>
+                  <div class="text-xs font-mono font-semibold" style="color:#2563EB">${p.dose}</div>
+                  <p class="text-xs ink-sub leading-relaxed">${p.cue}</p>
+                </div>
+                ${p.timerSec ? `<button type="button" data-ptimer="${p.timerSec}" data-pname="${p.name}" class="btn-ghost touch-btn px-3 rounded-xl text-xs font-mono font-bold self-start cursor-pointer">Chrono ${formatTime(p.timerSec)}</button>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      zonesBox.querySelectorAll('[data-pjump-tab]').forEach(btn => btn.addEventListener('click', () => {
+        const tab = btn.dataset.pjumpTab, target = btn.dataset.pjumpTarget;
+        if (tab === 'muscu') state.selectedWorkout = target;
+        if (tab === 'boxe') { state.selectedBoxe = target; loadBoxeStep(0, false); }
+        switchTab(tab);
+      }));
+      zonesBox.querySelectorAll('[data-ptimer]').forEach(btn => btn.addEventListener('click', () => startRestTimer(Number(btn.dataset.ptimer), btn.dataset.pname)));
+
+      document.getElementById('prophy-wrist-matrix').innerHTML = `
+        <h3 class="text-base font-bold ink-main">Matrice Poignet Gauche — Autoris&eacute; vs Proscrit</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="border-b border-[#E5E7EB] bg-[#F8FAFC]">
+                <th class="py-2.5 px-3 font-semibold ink-muted">Famille</th>
+                <th class="py-2.5 px-3 font-semibold" style="color:#047857">Autoris&eacute;</th>
+                <th class="py-2.5 px-3 font-semibold" style="color:#B91C1C">Proscrit</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${WRIST_MATRIX.map(r => `<tr class="border-b border-[#E5E7EB] align-top"><td class="py-2.5 px-3 font-semibold ink-main">${r.category}</td><td class="py-2.5 px-3 ink-main">${r.allowed}</td><td class="py-2.5 px-3 ink-sub">${r.forbidden}</td></tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      const thuBox = document.getElementById('prophy-thursday-routine');
+      const doneThu = THURSDAY_ROUTINE.filter(r => state.checkedProphy[r.id]).length;
+      thuBox.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 class="text-base font-bold ink-main">Routine Dimanche (15 min &middot; Repos SNC)</h3>
+            <p class="text-xs ink-muted">Mobilit&eacute; douce chevilles, hanches, rachis et poignet gauche.</p>
+          </div>
+          <span class="badge-blue text-xs font-mono font-bold px-2.5 py-1 rounded-lg">${doneThu} / ${THURSDAY_ROUTINE.length}</span>
+        </div>
+        <div class="space-y-2">
+          ${THURSDAY_ROUTINE.map(item => {
+            const checked = !!state.checkedProphy[item.id];
+            return `
+              <div class="ai-subtle rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                  <input type="checkbox" data-pcheck="${item.id}" ${checked ? 'checked' : ''} class="mt-0.5 w-4 h-4 accent-[#059669] cursor-pointer" />
+                  <div>
+                    <div class="text-xs sm:text-sm font-bold ${checked ? 'line-through ink-muted' : 'ink-main'}">${item.name}</div>
+                    <p class="text-xs ink-sub">${item.cue}</p>
+                  </div>
+                </label>
+                <button type="button" data-thutimer="${item.dur}" data-thuname="${item.name}" class="btn-ghost touch-btn px-3 rounded-xl text-xs font-mono font-bold shrink-0 cursor-pointer self-start sm:self-center">Lancer ${item.label}</button>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+      thuBox.querySelectorAll('[data-pcheck]').forEach(cb => cb.addEventListener('change', () => { state.checkedProphy[cb.dataset.pcheck] = cb.checked; saveState(); renderProphy(); }));
+      thuBox.querySelectorAll('[data-thutimer]').forEach(btn => btn.addEventListener('click', () => startRestTimer(Number(btn.dataset.thutimer), btn.dataset.thuname)));
+    }
+
+    // ===================== EXPORT MD & JSON =====================
+    function exportMarkdown() {
+      const sw = SW_WEEKS[state.swWeek];
+      let md = `# CADENCE HYBRIDE — PROGRAMME COMPLET\nSommeil : ${state.sleep} · Poignet : ${state.wrist} · SW : ${sw.code} · VMA : ${state.vma} km/h\n\n## 1. PLANNING 7 JOURS\n`;
+      PLANNING.forEach(d => { md += `### ${d.day}\n`; d.sessions.forEach(s => { md += `- [${s.slot}] ${s.title} (${s.duration} · ${s.load})\n`; }); md += `  ${d.note}\n`; });
+      md += `\n## 2. MUSCULATION (2 SÉR. EFF. MACHINES · 4× CLÉS)\n`;
+      Object.values(WORKOUTS).forEach(w => {
+        md += `### ${w.name} (${w.duration})\n| Exercice | Séries | Reps | Repos | RPE | Charge | Note |\n| --- | --- | --- | --- | --- | --- | --- |\n`;
+        w.blocks.forEach(b => b.items.forEach(ex => {
+          const reps = ex.swKey === 'dips' ? `${sw.code}: ${sw.dips}` : ex.swKey === 'pullups' ? `${sw.code}: ${sw.pullups}` : ex.reps;
+          md += `| ${ex.tag ? '['+ex.tag+'] ' : ''}${ex.name} | ${ex.sets}${ex.effectiveTag ? ' eff.' : ''} | ${reps} | ${ex.restLabel} | ${formatRpe(ex.baseRpe)} | ${state.weights[ex.id] || '—'} | ${state.notes[ex.id] || ''} |\n`;
+        }));
+        md += `\n`;
+      });
+      md += `## 3. STREET WORKOUT (8 SEMAINES)\n| Semaine | Phase | Tractions | Dips | Repos |\n| --- | --- | --- | --- | --- |\n`;
+      SW_WEEKS.forEach(w => { md += `| ${w.code} | ${w.phase} | ${w.pullups} | ${w.dips} | ${w.rest} |\n`; });
+      md += `\n## 4. BOXE SOLO\n`;
+      Object.values(BOXE_SESSIONS).forEach(b => { md += `### ${b.name}\n`; b.steps.forEach(s => { md += `- **${s.block} — ${s.title} (${formatTime(s.dur)}) :** ${s.cue}\n`; }); md += `\n`; });
+      md += `## 5. PROPHYLAXIE\n`;
+      PROPHYLAXIE_ZONES.forEach(z => { md += `### ${z.label}\n`; z.protocols.forEach(p => { md += `- **${p.name} (${p.dose}) :** ${p.cue}\n`; }); md += `\n`; });
+
+      const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'programme-hybride-on-air.md'; a.click();
+      URL.revokeObjectURL(url);
+      showToast('Export Markdown téléchargé');
+    }
+
+    document.getElementById('btn-backup-json').addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'cadence-hybride-backup.json'; a.click();
+      URL.revokeObjectURL(url);
+      showToast('Sauvegarde JSON téléchargée');
+    });
+    document.getElementById('input-import-json').addEventListener('change', e => {
+      const file = e.target.files?.[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          state = { ...structuredClone(defaultState), ...JSON.parse(String(reader.result)) };
+          saveState(); renderHeaderControls(); switchTab(state.activeTab);
+          showToast('Données restaurées !');
+        } catch { showToast('Fichier JSON invalide'); }
+      };
+      reader.readAsText(file);
+    });
+
+    // ===================== TABS & EVENTS =====================
+    function switchTab(tabId) {
+      state.activeTab = tabId; saveState();
+      ['dashboard', 'planning', 'muscu', 'sw', 'boxe', 'prophy'].forEach(t => {
+        document.getElementById(`panel-${t}`).classList.toggle('hidden', t !== tabId);
+        document.getElementById(`tab-${t}`)?.setAttribute('aria-selected', String(t === tabId));
+        document.getElementById(`mtab-${t}`)?.setAttribute('aria-selected', String(t === tabId));
+      });
+      if (tabId === 'dashboard') renderDashboard();
+      if (tabId === 'planning') renderPlanning();
+      if (tabId === 'muscu') renderMuscu();
+      if (tabId === 'sw') renderStreetWorkout();
+      if (tabId === 'boxe') { renderBoxeSelector(); renderBoxeTimer(); renderBoxeBlocks(); }
+      if (tabId === 'prophy') renderProphy();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('[data-tab]').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+    document.getElementById('btn-toggle-settings').addEventListener('click', () => {
+      const drawer = document.getElementById('settings-drawer');
+      const hidden = drawer.classList.toggle('hidden');
+      document.getElementById('btn-toggle-settings').setAttribute('aria-expanded', String(!hidden));
+    });
+    document.querySelectorAll('.sleep-btn').forEach(btn => btn.addEventListener('click', () => {
+      state.sleep = btn.dataset.sleep; saveState(); renderHeaderControls(); switchTab(state.activeTab);
+    }));
+    document.querySelectorAll('.wrist-btn').forEach(btn => btn.addEventListener('click', () => {
+      state.wrist = btn.dataset.wrist; saveState(); renderHeaderControls(); switchTab(state.activeTab);
+    }));
+    document.getElementById('sw-week-select').addEventListener('change', e => {
+      state.swWeek = Number(e.target.value); saveState(); renderHeaderControls(); switchTab(state.activeTab);
+    });
+    document.getElementById('toggle-autotimer').addEventListener('change', e => {
+      state.autoRestTimer = e.target.checked; saveState();
+      showToast(state.autoRestTimer ? 'Chrono auto activé' : 'Chrono auto désactivé');
+    });
+    document.getElementById('vma-input').addEventListener('input', e => {
+      state.vma = Number(e.target.value) || 15; saveState(); renderPaceCalculator();
+    });
+    document.getElementById('btn-export-md').addEventListener('click', exportMarkdown);
+    document.getElementById('btn-export-md-drawer').addEventListener('click', exportMarkdown);
+    document.getElementById('btn-reset-week').addEventListener('click', () => {
+      state.checkedSessions = {}; state.checkedSets = {}; state.checkedWarmups = {}; state.checkedProphy = {};
+      saveState(); renderHeaderControls(); switchTab(state.activeTab);
+      showToast('Semaine réinitialisée (charges conservées)');
+    });
+    window.addEventListener('resize', () => { if (state.activeTab === 'planning') renderPlanning(); });
+
+    // ===================== INIT =====================
+    renderHeaderControls();
+    updateStopwatchUI();
+    loadBoxeStep(0, false);
+    switchTab(state.activeTab);
+
+    // Register PWA Service Worker for full mobile install & offline gym usage
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
