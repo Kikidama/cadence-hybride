@@ -555,59 +555,59 @@
           { id: 'mon-boxeA', short: 'Boxe A', cat: 'boxe', period: 'matin', slot: 'Matin · 07h15 – 07h45', where: 'Salle On Air', title: 'Boxe Solo — Séance A (Footwork)', duration: '28 min', load: 'legere', link: { tab: 'boxe', target: 'boxeA' } },
           { id: 'mon-frac', short: 'Frac.', cat: 'run', period: 'soir', slot: 'Soir · 18h30 – 19h15', where: 'Course / Piste', title: 'Fractionné (Qualité)', duration: '45 min', load: 'lourde' }
         ],
-        note: 'Priorité absolue course : le Fractionné démarre la semaine à 57h30 du dernier Lower (Deadlift Samedi matin). Boxe A légère (RPE ≤ 6, zéro pliométrie) espacée de >10h : 1 seule séance lourde sur la journée.'
+        note: 'Priorité absolue course : Fractionné placé à 57h30 du Deadlift (Samedi matin) et >10h après la Boxe A technique (RPE ≤ 6, zéro pliométrie). 1 seule séance lourde sur la journée, suivie du Day Off mardi.'
       },
       {
         day: 'Mardi', short: 'Mar', jsDay: 2,
         sessions: [
-          { id: 'tue-upper1', short: 'Upper 1', cat: 'muscu', period: 'matin', slot: 'Matin · 07h00 – 08h05', where: 'Salle On Air', title: 'Upper 1 (Dips, Machines & Biceps)', duration: '65 min', load: 'lourde', link: { tab: 'muscu', target: 'upper1' } }
+          { id: 'tue-rest', short: 'OFF', cat: 'repos', period: 'matin', slot: 'Journée · Day Off', where: 'Maison / Repos', title: 'Day Off — Repos SNC + Prophylaxie 15 min', duration: '15 min', load: 'repos', link: { tab: 'prophy', target: 'all' } }
         ],
-        note: 'Haut du corps uniquement le lendemain matin du Fractionné : zéro interférence avec les jambes. Dips 4 séries + 2 séries effectives sur gros exos machines + Curl Incliné Marteau chef long biceps.'
+        note: 'Day Off complet en semaine (zéro salle, zéro course) placé juste après le Fractionné : fait chuter la fatigue nerveuse, protège le sommeil moyen et garantit des jambes fraîches pour le Squat mercredi matin.'
       },
       {
         day: 'Mercredi', short: 'Mer', jsDay: 3,
         sessions: [
           { id: 'wed-lower1', short: 'Lower 1', cat: 'muscu', period: 'matin', slot: 'Matin · 07h00 – 08h00', where: 'Salle On Air', title: 'Lower 1 (Squat Force)', duration: '57 min', load: 'lourde', link: { tab: 'muscu', target: 'lower1' } }
         ],
-        note: 'Squat placé à 36h après le Fractionné et 94h après Lower 2 (Deadlift). Séance unique matinale qui laisse 35h avant l’EF obligatoire de Jeudi soir et 74h avant Lower 2 (Samedi matin).'
+        note: 'Squat placé 36h après le Fractionné (avec Mardi en repos complet) et 94h après Lower 2 (Deadlift). Laisse 35h avant l’EF obligatoire de Jeudi soir et 74h avant le Deadlift de Samedi matin.'
       },
       {
         day: 'Jeudi', short: 'Jeu', jsDay: 4,
         sessions: [
-          { id: 'thu-boxeB', short: 'Boxe B', cat: 'boxe', period: 'matin', slot: 'Matin · 07h15 – 07h45', where: 'Salle On Air', title: 'Boxe Solo — Séance B (Défense)', duration: '29 min', load: 'legere', link: { tab: 'boxe', target: 'boxeB' } },
+          { id: 'thu-upper1', short: 'Upper 1', cat: 'muscu', period: 'matin', slot: 'Matin · 07h00 – 08h05', where: 'Salle On Air', title: 'Upper 1 (Dips, Machines & Biceps)', duration: '65 min', load: 'lourde', link: { tab: 'muscu', target: 'upper1' } },
           { id: 'thu-ef1', short: 'EF 19h', cat: 'run', period: 'soir', slot: 'Soir · 19h00 – 19h40 (Obligatoire)', where: 'Course extérieure', title: 'Course — EF #1 Obligatoire (Zone 2)', duration: '40 min', load: 'legere' }
         ],
-        note: 'Journée 100 % légère (0 séance lourde — décharge SNC) : Boxe B technique le matin (72h après Boxe A) puis sortie EF obligatoire à 19h00 (espacée de 11h15). Décrassage aérobie parfait 35h après le Squat.'
+        note: 'Doublé sans interférence (1 seule lourde) : Upper 1 haut du corps à 7h00 (93h30 après Upper 2) + EF Zone 2 obligatoire à 19h00 (espacée de 11h, décrassage idéal 35h après le Squat).'
       },
       {
         day: 'Vendredi', short: 'Ven', jsDay: 5,
         sessions: [
-          { id: 'fri-upper2', short: 'Upper 2', cat: 'muscu', period: 'matin', slot: 'Matin · 07h00 – 08h06', where: 'Salle On Air', title: 'Upper 2 (Tractions & Biceps+)', duration: '66 min', load: 'lourde', link: { tab: 'muscu', target: 'upper2' } }
+          { id: 'fri-boxeB', short: 'Boxe B', cat: 'boxe', period: 'matin', slot: 'Matin · 07h15 – 07h45', where: 'Salle On Air', title: 'Boxe Solo — Séance B (Défense)', duration: '29 min', load: 'legere', link: { tab: 'boxe', target: 'boxeB' } }
         ],
-        note: 'Haut du corps uniquement le lendemain matin de l’EF obligatoire de Jeudi 19h : zéro fatigue jambes/lombaires ! Espacé de 72h exactes après Upper 1 (récupération complète poignet gauche, épaules & bras).'
+        note: 'Journée 100 % légère (0 séance lourde) le lendemain de l’EF obligatoire de Jeudi 19h : Boxe B technique (96h après Boxe A) pour épargner totalement les jambes et arriver nerveusement frais sur le bloc week-end (Deadlift Sam + Tractions Dim).'
       },
       {
         day: 'Samedi', short: 'Sam', jsDay: 6,
         sessions: [
           { id: 'sat-lower2', short: 'Lower 2', cat: 'muscu', period: 'matin', slot: 'Matin · 09h00 – 10h00', where: 'Salle On Air', title: 'Lower 2 (Deadlift Force)', duration: '58 min', load: 'lourde', link: { tab: 'muscu', target: 'lower2' } }
         ],
-        note: 'Espacé de 74h après Lower 1 (Squat) et de 37h après l’EF de Jeudi soir. Séance unique matinale qui garantit 57h30 de fraîcheur avant le Fractionné de Lundi soir.'
+        note: 'Week-end actif : Deadlift espacé de 74h après Lower 1 (Squat) et de 38h après l’EF de Jeudi soir. Séance unique matinale garantissant 57h30 de fraîcheur avant le Fractionné de Lundi soir.'
       },
       {
         day: 'Dimanche', short: 'Dim', jsDay: 0,
         sessions: [
-          { id: 'sun-rest', short: 'Repos', cat: 'repos', period: 'matin', slot: 'Matin · Repos salle', where: 'Maison / Repos', title: 'Repos SNC + Prophylaxie 15 min', duration: '15 min', load: 'repos', link: { tab: 'prophy', target: 'all' } },
-          { id: 'sun-ef2', short: 'EF opt.', cat: 'run', period: 'soir', slot: 'Journée · 14h00 – 14h45 (Optionnelle)', where: 'Course extérieure', title: 'Course — EF #2 Optionnelle (Zone 2)', duration: '45 min', load: 'legere', optional: true }
+          { id: 'sun-upper2', short: 'Upper 2', cat: 'muscu', period: 'matin', slot: 'Matin · 09h30 – 10h36', where: 'Salle On Air', title: 'Upper 2 (Tractions & Biceps+)', duration: '66 min', load: 'lourde', link: { tab: 'muscu', target: 'upper2' } },
+          { id: 'sun-ef2', short: 'EF opt.', cat: 'run', period: 'soir', slot: 'Journée · 15h00 – 15h45 (Optionnelle)', where: 'Course extérieure', title: 'Course — EF #2 Optionnelle (Zone 2)', duration: '45 min', load: 'legere', optional: true }
         ],
-        note: 'Zéro salle de sport : soupape SNC & mobilité 15 min. Si ton sommeil de la semaine est bon, ajoute l’EF #2 Zone 2 douce en journée (28h après Deadlift) ; si sommeil < 6h, garde Dimanche en repos total (tu restes sur 2 courses solides : Lun Fractionné + Jeu 19h EF).'
+        note: 'Week-end actif : Upper 2 intervient 74h30 après Upper 1 (poignet et triceps 100 % régénérés). Le rowing Hammer Strength appui poitrine épargne les lombaires du Deadlift de la veille. Ajoute l’EF #2 douce à 15h si ton sommeil est bon (sinon supprime-la pour garder 2 courses clés).'
       }
     ];
 
     const WORKOUTS = {
       upper1: {
-        id: 'upper1', name: 'Upper 1', planSessionId: 'tue-upper1',
+        id: 'upper1', name: 'Upper 1', planSessionId: 'thu-upper1',
         subtitle: 'Dips 4× · Gros Exos Machines 2 sér. eff. · Épaules, Triceps & Biceps Chef Long',
-        slot: 'Mardi Matin · 07h00 – 08h05', duration: '~65 min (échauffement inclus)',
+        slot: 'Jeudi Matin · 07h00 – 08h05', duration: '~65 min (échauffement inclus)',
         warmupTitle: 'Échauffement Matinal Upper (8 min)',
         warmupSteps: [
           '2 min rameur ou vélo léger pour monter la température',
@@ -705,9 +705,9 @@
         ]
       },
       upper2: {
-        id: 'upper2', name: 'Upper 2', planSessionId: 'fri-upper2',
+        id: 'upper2', name: 'Upper 2', planSessionId: 'sun-upper2',
         subtitle: 'Tractions 4× · Machines Hammer 2 sér. eff. · Bloc Bras & Biceps+',
-        slot: 'Vendredi Matin · 07h00 – 08h06', duration: '~66 min (échauffement inclus)',
+        slot: 'Dimanche Matin · 09h30 – 10h36', duration: '~66 min (échauffement inclus)',
         warmupTitle: 'Échauffement Matinal Upper (8 min)',
         warmupSteps: [
           '2 min rameur léger + 30s suspension passive/active douce',
@@ -734,7 +734,7 @@
           },
           {
             type: 'single',
-            items: [{ id: 'u2-row', effectiveTag: '2 sér. eff.', name: 'Rowing Convergent Appui Poitrine (Iso-Lateral Row)', equip: 'Machine Hammer Strength', sets: 2, reps: '10 (+ 1 chauffe)', restSec: 120, restLabel: "2'00", baseRpe: 8.5, cue: '1 série de chauffe puis 2 séries effectives denses (RIR 1–2). Poitrine collée au boudin (épargne les lombaires avant le Deadlift de demain).', wristCue: 'Prise neutre (poignées verticales) + sangles de tirage recommandées.' }]
+            items: [{ id: 'u2-row', effectiveTag: '2 sér. eff.', name: 'Rowing Convergent Appui Poitrine (Iso-Lateral Row)', equip: 'Machine Hammer Strength', sets: 2, reps: '10 (+ 1 chauffe)', restSec: 120, restLabel: "2'00", baseRpe: 8.5, cue: '1 série de chauffe puis 2 séries effectives denses (RIR 1–2). Poitrine collée au boudin (épargne les lombaires le lendemain du Deadlift).', wristCue: 'Prise neutre (poignées verticales) + sangles de tirage recommandées.' }]
           },
           {
             type: 'superset', label: 'Superset S1 — Triceps Latéral & Arrière d’Épaule',
@@ -813,8 +813,8 @@
         ]
       },
       boxeB: {
-        id: 'boxeB', name: 'Boxe B (29 min)', slot: 'Jeudi Matin · 07h15 – 07h45 · Salle On Air',
-        focus: 'Défense, Contres, Endurance Épaules & Chaîne Rotative — Avant l’EF obligatoire de 19h00',
+        id: 'boxeB', name: 'Boxe B (29 min)', slot: 'Vendredi Matin · 07h15 – 07h45 · Salle On Air',
+        focus: 'Défense, Contres, Endurance Épaules & Chaîne Rotative — Journée légère avant le week-end',
         steps: [
           { block: 'Bloc 1 · Échauffement', title: 'Mobilité Thoracique & Shadow Lent', dur: 300, type: 'warmup', cue: '2 min ouvertures thoraciques + 15 rotations externes élastique. 3 min shadowboxing très lent 40%.' },
           { block: 'Bloc 2 · Défense', title: 'Round 1 — Défense Active Pure', dur: 180, type: 'work', cue: 'Esquives latérales (slips), retraits de buste, blocages coudes serrés, roulades courtes.' },
@@ -838,7 +838,7 @@
         sessions: [{ label: 'Upper 1', tab: 'muscu', target: 'upper1' }, { label: 'Upper 2', tab: 'muscu', target: 'upper2' }, { label: 'Boxe A/B', tab: 'boxe', target: 'boxeA' }],
         protocols: [
           { name: 'Échauffement Doux Pré-Séance', dose: '2 min avant Upper / Boxe', timerSec: 120, cue: 'Cercles lents en décharge, flexions/extensions actives sans appui au sol. Zéro hyperextension forcée.' },
-          { name: 'Renforcement Isométrique Léger', dose: '2 × 20s / angle (Dimanche)', timerSec: 40, cue: 'Avant-bras posé sur la cuisse, haltère 1–2 kg en prise neutre. Stop si douleur > 2/10.' },
+          { name: 'Renforcement Isométrique Léger', dose: '2 × 20s / angle (Mardi Day Off)', timerSec: 40, cue: 'Avant-bras posé sur la cuisse, haltère 1–2 kg en prise neutre. Stop si douleur > 2/10.' },
           { name: 'Équipement Systématique On Air', dose: 'Obligatoire', cue: 'Bandes poignet (Dips) · Straps (Deadlift & Tirage) · Manchette avant-bras (Élévations & Curl Bayésien) · Bandages 4m + gants 14–16 oz.' }
         ]
       },
@@ -869,7 +869,7 @@
         protocols: [
           { name: 'Leg Curl Assis Excentrique 3s', dose: '3 × 10–12 (Lower 1)', cue: 'Concentrique franche, retour lent 3s pour prévenir les lésions ischios sur le fractionné.' },
           { name: 'Abduction Hanche (Moyen Fessier)', dose: '3 × 15 / jambe (Lower 2)', cue: 'Buste droit sans bascule bassin : prévient le syndrome de l’essuie-glace (TFL).' },
-          { name: 'Mobilité Hanches 90/90 & Psoas', dose: '2 min (Lower & Dimanche)', timerSec: 120, cue: 'Transitions lentes assises en 90/90 + ouverture dynamique du psoas.' }
+          { name: 'Mobilité Hanches 90/90 & Psoas', dose: '2 min (Lower & Mardi)', timerSec: 120, cue: 'Transitions lentes assises en 90/90 + ouverture dynamique du psoas.' }
         ]
       },
       {
@@ -879,7 +879,7 @@
         protocols: [
           { name: 'Face Pull Rotation Externe & Oiseau', dose: 'Upper 1 & Upper 2', cue: 'Tirer vers le front pouces arrière (pause 1s) pour compenser la garde de boxe.' },
           { name: 'Gainage Zéro Appui Poignet', dose: 'Pallof · Deadbug · Avant-bras', cue: 'Zéro planche/pompe mains à plat : Pallof Press, Deadbug et planche latérale avant-bras.' },
-          { name: 'Décompression Thoracique', dose: '2 min (Upper & Dimanche)', timerSec: 120, cue: 'Ouvertures thoraciques Open Book + band pull-aparts très légers.' }
+          { name: 'Décompression Thoracique', dose: '2 min (Upper & Mardi)', timerSec: 120, cue: 'Ouvertures thoraciques Open Book + band pull-aparts très légers.' }
         ]
       }
     ];
@@ -1244,7 +1244,7 @@
             <span class="${wristBadge} text-xs font-semibold px-2 py-0.5 rounded">${wristDesc.split('·')[0].trim()}</span>
           </div>
           <div class="text-sm font-bold ink-main">${sleepDesc}</div>
-          <div class="text-xs ink-sub">Routine Dim : <strong class="font-mono ink-main">${doneProphy}/${THURSDAY_ROUTINE.length}</strong> &middot; DL&rarr;Frac : <strong class="font-mono ink-main">57h30</strong></div>
+          <div class="text-xs ink-sub">Routine Mardi : <strong class="font-mono ink-main">${doneProphy}/${THURSDAY_ROUTINE.length}</strong> &middot; DL&rarr;Frac : <strong class="font-mono ink-main">57h30</strong></div>
         </div>
 
         <div class="ai-card rounded-2xl p-4 space-y-2 cursor-pointer" data-dash-tab="muscu">
@@ -1264,12 +1264,12 @@
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
             <h3 class="text-base font-bold ink-main">R&eacute;partition 7 Jours &mdash; Salle Matin / Course Soir &amp; WE</h3>
-            <p class="text-xs ink-muted">1 s&eacute;ance lourde max/jour &middot; EF obligatoire Jeudi 19h &middot; D&eacute;charge SNC Jeudi &amp; Dimanche</p>
+            <p class="text-xs ink-muted">Day Off Mardi &middot; Week-end actif (Sam/Dim) &middot; EF obligatoire Jeudi 19h</p>
           </div>
           <div class="flex items-center gap-2 text-xs">
             <span class="badge-amber px-2 py-0.5 rounded font-semibold">Lourde</span>
             <span class="badge-green px-2 py-0.5 rounded font-semibold">L&eacute;g&egrave;re</span>
-            <span class="badge-gray px-2 py-0.5 rounded font-semibold">Repos</span>
+            <span class="badge-gray px-2 py-0.5 rounded font-semibold">OFF</span>
           </div>
         </div>
         <div class="grid grid-cols-7 gap-1.5 sm:gap-2 pt-1">
@@ -1287,7 +1287,10 @@
             return `
               <button type="button" data-dash-day="${idx}" class="rounded-xl p-1.5 space-y-1.5 text-center cursor-pointer transition-all ${isToday ? 'bg-[#EFF6FF] border border-[#93C5FD]' : 'bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#94A3B8]'}">
                 <div class="text-xs font-bold ${isToday ? 'text-[#1D4ED8]' : 'ink-main'}">${d.short}</div>
-                ${slotPill(morning)}${slotPill(evening)}
+                ${d.sessions.length === 1 && d.sessions[0].load === 'repos'
+                  ? `<div class="h-[102px] rounded-lg badge-gray flex flex-col items-center justify-center px-1"><span class="text-xs font-bold">OFF</span><span class="text-xs opacity-75">Mob.</span></div>`
+                  : `${slotPill(morning)}${slotPill(evening)}`
+                }
               </button>
             `;
           }).join('')}
@@ -1336,7 +1339,7 @@
         <h3 class="text-base font-bold ink-main">Acc&egrave;s Rapide en Salle</h3>
         <div class="grid grid-cols-2 gap-2">
           <button type="button" data-qa="muscu:upper1" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
-            <div class="text-xs font-bold ink-main">Upper 1 &middot; Mar (65m)</div>
+            <div class="text-xs font-bold ink-main">Upper 1 &middot; Jeu (65m)</div>
             <div class="text-xs ink-muted">Dips 4&times; &middot; Biceps Chef Long</div>
           </button>
           <button type="button" data-qa="muscu:lower1" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
@@ -1344,7 +1347,7 @@
             <div class="text-xs ink-muted">Squat 4&times;5 &middot; Genoux/Achille</div>
           </button>
           <button type="button" data-qa="muscu:upper2" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
-            <div class="text-xs font-bold ink-main">Upper 2 &middot; Ven (66m)</div>
+            <div class="text-xs font-bold ink-main">Upper 2 &middot; Dim (66m)</div>
             <div class="text-xs ink-muted">Tractions 4&times; &middot; Biceps+</div>
           </button>
           <button type="button" data-qa="muscu:lower2" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
@@ -1353,10 +1356,10 @@
           </button>
           <button type="button" data-qa="boxe:boxeA" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
             <div class="text-xs font-bold ink-main">Chrono Boxe Solo</div>
-            <div class="text-xs ink-muted">Lun A (28m) &amp; Jeu B (29m)</div>
+            <div class="text-xs ink-muted">Lun A (28m) &amp; Ven B (29m)</div>
           </button>
           <button type="button" data-qa="prophy:all" class="btn-ghost touch-btn rounded-xl p-3 text-left space-y-0.5 cursor-pointer">
-            <div class="text-xs font-bold ink-main">Prophylaxie &amp; Dim</div>
+            <div class="text-xs font-bold ink-main">Prophylaxie &amp; Mardi</div>
             <div class="text-xs ink-muted">5 zones + Routine 15 min</div>
           </button>
         </div>
@@ -1797,7 +1800,7 @@
       thuBox.innerHTML = `
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h3 class="text-base font-bold ink-main">Routine Dimanche (15 min &middot; Repos SNC)</h3>
+            <h3 class="text-base font-bold ink-main">Routine Mardi (15 min &middot; Day Off SNC)</h3>
             <p class="text-xs ink-muted">Mobilit&eacute; douce chevilles, hanches, rachis et poignet gauche.</p>
           </div>
           <span class="badge-blue text-xs font-mono font-bold px-2.5 py-1 rounded-lg">${doneThu} / ${THURSDAY_ROUTINE.length}</span>
